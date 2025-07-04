@@ -47,7 +47,6 @@ get_header();
                         <th scope="col">Cấp</th>
                         <th scope="col">Kiểu</th>
                         <th scope="col">Tên danh mục</th>
-                        <th scope="col">ID cha</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Nổi bật</th>
                         <th scope="col">Tác vụ</th>
@@ -82,8 +81,7 @@ get_header();
                                 }
                             ?>
                         </td>
-                        <td><?php echo $item['ten_danhmuc']; ?></td>
-                        <td><?php echo $item['danhmuc_id_cha']; ?></td>
+                        <td><?php echo get_full_category_path($item['danhmuc_id']); ?></td>
                         <td><?php echo $item['trangthai']; ?></td>
                         <td><?php echo $item['noibat']; ?></td>
                         <td>                           

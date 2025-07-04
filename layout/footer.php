@@ -213,187 +213,231 @@
         </footer>
     </div>
 
+    <div class="backdrop__body-backdrop___1rvky"></div>
 
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-	/*Header promotion*/
-	
-	var index = 0,
-		stop = false,
-		num = document.querySelectorAll('.js-promo > li').length,
-		liEls = document.querySelectorAll('.js-promo > li');
+         /*Header promotion*/
+            
+            var index = 0,
+                stop = false,
+                num = document.querySelectorAll('.js-promo > li').length,
+                liEls = document.querySelectorAll('.js-promo > li');
 
-	function shippingflipInX() {
-		if (stop) return false;
-		if (index > (num - 2)) {
-			liEls.forEach(function (el) {
-				el.classList.add('see-none');
-				el.classList.remove('animated', 'flipInX', 'see-block');
-			});
-			index = 0;
-			liEls[0].classList.add('animated', 'flipInX', 'see-block');
-			liEls[0].classList.remove('see-none');
-			return;
-		}
+            function shippingflipInX() {
+                if (stop) return false;
+                if (index > (num - 2)) {
+                    liEls.forEach(function (el) {
+                        el.classList.add('see-none');
+                        el.classList.remove('animated', 'flipInX', 'see-block');
+                    });
+                    index = 0;
+                    liEls[0].classList.add('animated', 'flipInX', 'see-block');
+                    liEls[0].classList.remove('see-none');
+                    return;
+                }
 
-		liEls.forEach(function (el) {
-			el.classList.add('see-none');
-			el.classList.remove('animated', 'flipInX', 'see-block');
-		});
-		liEls[index + 1].classList.remove('see-none');
-		liEls[index + 1].classList.add('animated', 'flipInX', 'see-block');
-		index++;
-	}
+                liEls.forEach(function (el) {
+                    el.classList.add('see-none');
+                    el.classList.remove('animated', 'flipInX', 'see-block');
+                });
+                liEls[index + 1].classList.remove('see-none');
+                liEls[index + 1].classList.add('animated', 'flipInX', 'see-block');
+                index++;
+            }
 
-	var hdtimer = setInterval(function () {
-		shippingflipInX();
-	}, 5000);
+            var hdtimer = setInterval(function () {
+                shippingflipInX();
+            }, 5000);
 
-	document.querySelector('.js-promo').addEventListener('mouseenter', function () {
-		stop = true;
-	});
+            document.querySelector('.js-promo').addEventListener('mouseenter', function () {
+                stop = true;
+            });
 
-	document.querySelector('.js-promo').addEventListener('mouseleave', function () {
-		stop = false;
-	});
-	
-});
+            document.querySelector('.js-promo').addEventListener('mouseleave', function () {
+                stop = false;
+            });
+            
+        });
     </script>
+   
     <script>
-        (function($){
-		"user strict";
-		$.fn.Dqdt_CountDown = function( options ) {
-			return this.each(function() {
-				new  $.Dqdt_CountDown( this, options );
-			});
-		}
-		$.Dqdt_CountDown = function( obj, options ){
-			this.options = $.extend({
-				autoStart			: true,
-				LeadingZero:true,
-				DisplayFormat:"<div><span>%%D%%</span> Days</div><div><span>%%H%%</span> Hours</div><div><span>%%M%%</span> Mins</div><div><span>%%S%%</span> Secs</div>",
-				FinishMessage:"Háº¿t háº¡n",
-				CountActive:true,
-				TargetDate:null
-			}, options || {} );
-			if( this.options.TargetDate == null || this.options.TargetDate == '' ){
-				return ;
-			}
-			this.timer  = null;
-			this.element = obj;
-			this.CountStepper = -1;
-			this.CountStepper = Math.ceil(this.CountStepper);
-			this.SetTimeOutPeriod = (Math.abs(this.CountStepper)-1)*1000 + 990;
-			var dthen = new Date(this.options.TargetDate);
-			var dnow = new Date();
-			if( this.CountStepper > 0 ) {
-				ddiff = new Date(dnow-dthen);
-			}
-			else {
-				ddiff = new Date(dthen-dnow);
-			}
-			gsecs = Math.floor(ddiff.valueOf()/1000);
-			this.CountBack(gsecs, this);
-		};
-		$.Dqdt_CountDown.fn =  $.Dqdt_CountDown.prototype;
-		$.Dqdt_CountDown.fn.extend =  $.Dqdt_CountDown.extend = $.extend;
-		$.Dqdt_CountDown.fn.extend({
-			calculateDate:function( secs, num1, num2 ){
-				var s = ((Math.floor(secs/num1))%num2).toString();
-				if ( this.options.LeadingZero && s.length < 2) {
-					s = "0" + s;
-				}
-				return "<b>" + s + "</b>";
-			},
-			CountBack:function( secs, self ){
-				if (secs < 0) {
-					self.element.innerHTML = '<div class="lof-labelexpired"> '+self.options.FinishMessage+"</div>";
-					return;
-				}
-				clearInterval(self.timer);
-				DisplayStr = self.options.DisplayFormat.replace(/%%D%%/g, self.calculateDate( secs,86400,100000) );
-				DisplayStr = DisplayStr.replace(/%%H%%/g, self.calculateDate(secs,3600,24));
-				DisplayStr = DisplayStr.replace(/%%M%%/g, self.calculateDate(secs,60,60));
-				DisplayStr = DisplayStr.replace(/%%S%%/g, self.calculateDate(secs,1,60));
-				self.element.innerHTML = DisplayStr;
-				if (self.options.CountActive) {
-					self.timer = null;
-					self.timer =  setTimeout( function(){
-						self.CountBack((secs+self.CountStepper),self);
-					},( self.SetTimeOutPeriod ) );
-				}
-			}
-		});
-		$(document).ready(function(){
-			$('[data-countdown="countdown"]').each(function(index, el) {
-				var $this = $(this);
-				var $date = $this.data('date').split("-");
-				$this.Dqdt_CountDown({
-					TargetDate:$date[0]+""+$date[1]+"/"+$date[2]+" "+$date[3]+":"+$date[4]+":"+$date[5],
-					DisplayFormat:"<div class=\"block-timer\"><p>%%D%%</p><span>Ngày</span></div><div class=\"block-timer\"><p>%%H%%</p><span>Giờ</span></div><div class=\"block-timer\"><p>%%M%%</p><span>Phút</span></div><div class=\"block-timer\"><p>%%S%%</p><span>Giây</span></div>",
-					FinishMessage: "Chương trình đã hết hạn"
-				});
-			});
-		});
-	})(jQuery);
-    </script>
-    
-    <script>
-        var swiper_coupons = null;
-        function initSwiperCoupons() {
-            swiper_coupons = new Swiper('.swiper_coupons', {
-                slidesPerView: 4,
-                spaceBetween: 16,
-                watchOverflow: true,
-                slidesPerGroup: 1,
-                navigation: {
-                    nextEl: '.swiper_coupons .swiper-button-next',
-                    prevEl: '.swiper_coupons .swiper-button-prev',
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 14
-                    },
-                    768: {
-                        slidesPerView: 2.3,
-                        spaceBetween: 14
-                    },
-                    992: {
-                        slidesPerView: 2.5,
-                        spaceBetween: 20
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 16
-                    },
-                    1200: {
+        $(document).ready(function ($) {
+            function runSwiperSale() {
+                var swiper_sale = null;
+                function initSwiperSale() {
+                    swiper_sale = new Swiper('.swiper_sale', {
                         slidesPerView: 4,
-                        spaceBetween: 16
+                        spaceBetween: 20,
+                        slidesPerGroup: 1,
+                        navigation: {
+                            nextEl: '.swiper_sale .swiper-button-next',
+                            prevEl: '.swiper_sale .swiper-button-prev',
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 4,
+                                spaceBetween: 20
+                            },
+                            992: {
+                                slidesPerView: 4,
+                                spaceBetween: 20
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                spaceBetween: 20
+                            }
+                        }
+                    });
+                }
+                function destroySwiperSale() {
+                    if (swiper_sale) {
+                        swiper_sale.destroy(true, true);
+                        swiper_sale = null;
+                    }
+                }
+                function toggleSwiperSale() {
+                    if ($(window).width() <= 767 && swiper_sale) {
+                        destroySwiperSale();
+                    } else if ($(window).width() > 767 && !swiper_sale) {
+                        initSwiperSale();
+                    }
+                }
+                toggleSwiperSale();
+                $(window).resize(toggleSwiperSale);
+            }
+            lazyBlockProduct('section_flash_sale','0px 0px -250px 0px',runSwiperSale);
+        });
+        
+        (function($){
+            "user strict";
+            $.fn.Dqdt_CountDown = function( options ) {
+                return this.each(function() {
+                    new  $.Dqdt_CountDown( this, options );
+                });
+            }
+            $.Dqdt_CountDown = function( obj, options ){
+                this.options = $.extend({
+                    autoStart			: true,
+                    LeadingZero:true,
+                    DisplayFormat:"<div><span>%%D%%</span> Days</div><div><span>%%H%%</span> Hours</div><div><span>%%M%%</span> Mins</div><div><span>%%S%%</span> Secs</div>",
+                    FinishMessage:"Háº¿t háº¡n",
+                    CountActive: true,
+                    TargetDate: null
+                }, options || {} );
+                if( this.options.TargetDate == null || this.options.TargetDate == '' ){
+                    return ;
+                }
+                this.timer  = null;
+                this.element = obj;
+                this.CountStepper = -1;
+                this.CountStepper = Math.ceil(this.CountStepper);
+                this.SetTimeOutPeriod = (Math.abs(this.CountStepper)-1)*1000 + 990;
+                var dthen = new Date(this.options.TargetDate);
+                var dnow = new Date();
+                if( this.CountStepper > 0 ) {
+                    ddiff = new Date(dnow-dthen);
+                }
+                else {
+                    ddiff = new Date(dthen-dnow);
+                }
+                gsecs = Math.floor(ddiff.valueOf()/1000);
+                this.CountBack(gsecs, this);
+            };
+            $.Dqdt_CountDown.fn =  $.Dqdt_CountDown.prototype;
+            $.Dqdt_CountDown.fn.extend =  $.Dqdt_CountDown.extend = $.extend;
+            $.Dqdt_CountDown.fn.extend({
+                calculateDate:function( secs, num1, num2 ){
+                    var s = ((Math.floor(secs/num1))%num2).toString();
+                    if ( this.options.LeadingZero && s.length < 2) {
+                        s = "0" + s;
+                    }
+                    return "<b>" + s + "</b>";
+                },
+                CountBack:function( secs, self ){
+                    if (secs < 0) {
+                        self.element.innerHTML = '<div class="lof-labelexpired"> '+self.options.FinishMessage+"</div>";
+                        return;
+                    }
+                    clearInterval(self.timer);
+                    DisplayStr = self.options.DisplayFormat.replace(/%%D%%/g, self.calculateDate( secs,86400,100000) );
+                    DisplayStr = DisplayStr.replace(/%%H%%/g, self.calculateDate(secs,3600,24));
+                    DisplayStr = DisplayStr.replace(/%%M%%/g, self.calculateDate(secs,60,60));
+                    DisplayStr = DisplayStr.replace(/%%S%%/g, self.calculateDate(secs,1,60));
+                    self.element.innerHTML = DisplayStr;
+                    if (self.options.CountActive) {
+                        self.timer = null;
+                        self.timer =  setTimeout( function(){
+                            self.CountBack((secs+self.CountStepper),self);
+                        },( self.SetTimeOutPeriod ) );
                     }
                 }
             });
-        }
-        function destroySwiperCoupons() {
-            if (swiper_coupons) {
-                swiper_coupons.destroy(true, true);
-                swiper_coupons = null;
-            }
-        }
-        function toggleSwiperCoupons() {
-            if ($(window).width() <= 767 && swiper_coupons) {
-                destroySwiperCoupons();
-            } else if ($(window).width() > 767 && !swiper_coupons) {
-                initSwiperCoupons();
-            }
-        }
-        toggleSwiperCoupons();
-        $(window).on('resize', function() {
-            toggleSwiperCoupons();
+            $(document).ready(function(){
+                $('[data-countdown="countdown"]').each(function(index, el) {
+                    var $this = $(this);
+                    var $date = $this.data('date').split("-");
+                    $this.Dqdt_CountDown({
+                        TargetDate:$date[0]+"/"+$date[1]+"/"+$date[2]+" "+$date[3]+":"+$date[4]+":"+$date[5],
+                        DisplayFormat:"<div class=\"block-timer\"><p>%%D%%</p><span>Ngày</span></div><div class=\"block-timer\"><p>%%H%%</p><span>Giờ</span></div><div class=\"block-timer\"><p>%%M%%</p><span>Phút</span></div><div class=\"block-timer\"><p>%%S%%</p><span>Giây</span></div>",
+                        FinishMessage: "Chương trình đã hết hạn"
+                    });
+                });
+            });
+        })(jQuery);
+    </script>
+    <script src="public/js/app.js" type="text/javascript"></script>
+    <script src="public/js/main_yen.js"></script>
+    <script src="public/js/cart.js"></script>
+    <script>
+        $('.img_hover_cart').click(function(){
+            $('.cart-sidebar, .backdrop__body-backdrop___1rvky').addClass('active');
+        });
+
+        $(document).on('click','.backdrop__body-backdrop___1rvky, .cart_btn-close', function() {   
+            $('.backdrop__body-backdrop___1rvky, .cart-sidebar, #popup-cart-desktop, .popup-cart-mobile').removeClass('active');
+            return false;
+        })
+
+        $(document).ready(function(){
+            $(document).on('click', '.js-copy',function(e){
+                e.preventDefault();
+                var copyText = $(this).attr('data-copy');
+                var copyTextarea = document.createElement("textarea");
+                copyTextarea.textContent = copyText;
+                copyTextarea.style.position = "fixed";
+                document.body.appendChild(copyTextarea);
+                copyTextarea.select();
+                document.execCommand("copy"); 
+                document.body.removeChild(copyTextarea);
+                var cur_text = $(this).text();
+                var $cur_btn = $(this);
+                $(this).addClass("iscopied");
+                $(this).text("Đã lưu");
+                setTimeout(function(){
+                    $cur_btn.removeClass("iscopied");
+                    $cur_btn.text(cur_text);
+                },1500)
+            })
+            $('.info-button').click(function() {
+                var code = $(this).attr('data-coupon'),
+                    time = $(this).attr('data-time'),
+                    dieukien = $(this).attr('data-content');
+                $('.popup-coupon .code').html(code);
+                $('.popup-coupon .time').html(time);
+                $('.popup-coupon .dieukien').html(dieukien);
+                $('.popup-coupon, .backdrop__body-backdrop___1rvky').addClass('active'); 
+
+            });
+            $(document).on('click','.backdrop__body-backdrop___1rvky, .close-popup-coupon', function() {   
+                $('.backdrop__body-backdrop___1rvky,.popup-coupon').removeClass('active');
+                return false;
+            })
         });
     </script>
+
     <script>
         $(document).ready(function ($) {
             lazyBlockProduct('section_product_tab_1','0px 0px -250px 0px');
@@ -660,5 +704,27 @@
             });
         })(jQuery);
     </script>
+    
+    <!-- cart -->
+    <!-- <script>
+        $.ajax({
+            url: '?mod=cart&action=add_cart', // đúng theo route hiện tại của bạn
+            type: 'POST',
+            data: {
+                product_id: productId,
+                qty: 1
+            },
+            dataType: 'json',
+            success: function(response){
+                if(response.status === 'success'){
+                    alert(response.message);
+                    $('#cart-count').text(response.total_items); // cập nhật số lượng
+                } else {
+                    alert(response.message);
+                }
+            }
+        });
+
+    </script> -->
 </body>
 </html>

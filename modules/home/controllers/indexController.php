@@ -4,7 +4,8 @@ function construct() {
 //    echo "DÙng chung, load đầu tiên";
     load_model('index');
     load('lib','validation');
-    load('lib','product');
+    load('lib','product');  
+    load('lib','post');
 }
 
 function indexAction() {  
@@ -14,9 +15,8 @@ function indexAction() {
     $list_product=get_list_product();
     $list_product_banchay=get_list_product_banchay();
     $list_post=get_list_post();
+    $list_voucher=get_list_voucher();
     $parent_categories = get_list_parent_categories();
-    // $sub_categories = get_list_sub_categories($parent_categorise['cat_id']);
-    // $data['sub_categories'] = $sub_categories;
     $data['parent_categories'] = $parent_categories;
     $data['list_slide']=$list_slide;
     $data['list_banner_trai']=$list_banner_trai;
@@ -24,6 +24,7 @@ function indexAction() {
     $data['list_product_banchay']=$list_product_banchay;
     $data['list_product']=$list_product;
     $data['list_post']=$list_post;
+    $data['list_voucher']=$list_voucher;
     load_view('index',$data);
 }
 function detailAction(){
@@ -67,12 +68,43 @@ function load_menuAction(){
             load_view_menu('index',$data, 'product');
             break;
         case 3:
-            load_view_menu('news',$data, 'page');
+            load_view_menu('post',$data, 'post');
             break;
         default:
         break;
     }
+}   
 
+function load_menu_by_slugAction() {
+    $slug = $_GET['slug'];
+    // tìm trong DB danh mục có slug là $slug
+    $danhmuc = db_fetch_row("SELECT * FROM tbl_danhmuc WHERE `tenmien` = '{$slug}' LIMIT 1");
+
+    if (!$danhmuc) {
+        echo "Không tìm thấy danh mục";
+        return;
+    }
+
+    // gọi lại đúng logic như load_menuAction
+    $data['danhmuc_detail'] = $danhmuc;
+    switch ($danhmuc['kieu']) {
+        case 1:
+            load_view_menu('intro', $data, 'page');
+            break;
+        case 2:
+            load_view_menu('index', $data, 'product');
+            break;
+        case 3:
+            load_view_menu('post', $data, 'post');
+            break;
+        default:
+            echo "Không xác định kiểu danh mục";
+            break;
+    }
 }
 
 
+function testAction() {
+    $tinh_id = $_POST['tinh_id'];
+    echo 'thành công';
+}

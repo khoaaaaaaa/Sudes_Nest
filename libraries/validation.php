@@ -26,6 +26,16 @@ function is_phone_number($number){
     }
     
 }
+function is_email($email){
+    // Biểu thức chính quy để kiểm tra email hợp lệ
+    $pattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+    
+    // Sử dụng preg_match để so sánh email với biểu thức chính quy
+    if (!preg_match($pattern, $email, $matchs)) {
+        return false; // Email không hợp lệ
+    }
+    return true; // Email hợp lệ
+}
 function form_error($label_field){
     global $error;
     if(!empty($error[$label_field])){echo " <p style='color:red' class='error'>{$error[$label_field]} </p>";} 

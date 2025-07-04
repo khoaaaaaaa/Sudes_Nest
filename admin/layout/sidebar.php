@@ -133,6 +133,20 @@
                             <li><a href="?mod=slide&action=list_slide">Danh sách</a></li>
                         </ul>
                     </li>
+                    <li class="nav-link">
+                        <a href="?mod=discount&action=list_discount">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Mã giảm giá
+                        </a>
+                        <i class="arrow fas fa-angle-right"></i>
+
+                        <ul class="sub-menu">
+                            <li><a href="?mod=slide&action=add_slide">Thêm mới</a></li>
+                            <li><a href="?mod=slide&action=list_slide">Danh sách</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
    

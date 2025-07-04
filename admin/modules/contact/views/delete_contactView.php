@@ -8,7 +8,7 @@ get_header();
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold">
-            Xóa sản phẩm
+            Xóa liên hệ
         </div>
         <div class="card-body">
             <form method="POST" enctype="multipart/form-data">

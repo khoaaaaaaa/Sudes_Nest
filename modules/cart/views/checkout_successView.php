@@ -18,6 +18,8 @@ get_header();
                         <thead>
                             <tr>                                          
                                 <th scope="col">Tên Khách Hàng</th>
+                                <th scope="col">Ngày giao hàng</th>
+                                <th scope="col">Thời gian giao hàng</th>
                                 <th scope="col">Địa chỉ</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Số điện thoại</th>
@@ -30,6 +32,8 @@ get_header();
                             ?>
                             <tr class="">
                                 <td><?php echo $kh['HoTen']?></td>
+                                <td><?php echo $order['ngaygiao']?></td>
+                                <td><?php echo $order['thoigian']?></td>
                                 <td><?php echo $order['diachidh'] ?></td>
                                 <td><?php echo $kh['email']?></td>
                                 <td><?php echo $kh['sdt']?></td>                      
@@ -47,7 +51,7 @@ get_header();
                                 <th scope="col">Ảnh</th>
                                 <th scope="col">Mã SP</th>
                                 <th scope="col">Tên SP</th>
-                                <th scope="col">Gía</th>
+                                <th scope="col">Giá</th>
                                 <th scope="col">Số lượng</th>
                                 <th scope="col">Thành tiền</th>                                         
                             </tr>
@@ -65,7 +69,7 @@ get_header();
                                 <td scope="row"><?php echo $stt;$stt++?></td>
 
                                 <td>
-                                    <a style="color: #000 !important;" href="" title=""><img style="width:80px !important;height: 80px !important;" src="admin/public/images/<?php echo $product['img']?>" alt=""></a>
+                                    <a style="color: #000 !important;" href="" title=""><img style="width: 100px !important;height: 100px !important;" src="admin/public/images/<?php echo $product['img']?>" alt=""></a>
                                 </td>
                                 <td>#SP<?php echo $product['product_id']?></td>
                                 <td ><a href="#"><?php echo $item['product_title']?></a></td>

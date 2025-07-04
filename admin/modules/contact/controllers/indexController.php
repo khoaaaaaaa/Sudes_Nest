@@ -101,29 +101,29 @@
             }
 
             // Nếu không có lỗi, lưu vào database
-            if (empty($error)) {
-                $type=pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
-                $name_img=create_slug($fullname).'-'.date('Y-m-d').''.rand(10,100000);
-                resize_img($_FILES['file']['tmp_name'],$type,$name_img,300,300);                               
-                move_uploaded_file($_FILES['file']['tmp_name'],$upload_file);
-            
-                $url_img_new=$name_img.'.'.$type;
-                rename("public/images/{$img_name}","public/images/{$url_img_new}");
+                if (empty($error)) {
+                    $type=pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
+                    $name_img=create_slug($fullname).'-'.date('Y-m-d').''.rand(10,100000);
+                    resize_img($_FILES['file']['tmp_name'],$type,$name_img,300,300);                               
+                    move_uploaded_file($_FILES['file']['tmp_name'],$upload_file);
+                
+                    $url_img_new=$name_img.'.'.$type;
+                    rename("public/images/{$img_name}","public/images/{$url_img_new}");
 
-                $data = [
-                    'fullname' => $fullname,
-                    'email' => $email,
-                    'phone_number' => $phone_number,
-                    'content' => $content,
-                    'img' => $url_img_new,
-                    'kieu' => $kieu,
-                    'created_at' => $created_at,    
-                    'job' => $job
-                ];
-                db_insert('tbl_lienhe',$data);
-                $_SESSION['result']="Thêm feedback thành công !";
-                redirect("?mod=contact&action=list_contact");                           
-            }
+                    $data = [
+                        'fullname' => $fullname,
+                        'email' => $email,
+                        'phone_number' => $phone_number,
+                        'content' => $content,
+                        'img' => $url_img_new,
+                        'kieu' => $kieu,
+                        'created_at' => $created_at,    
+                        'job' => $job
+                    ];
+                    db_insert('tbl_lienhe',$data);
+                    $_SESSION['result']="Thêm feedback thành công !";
+                    redirect("?mod=contact&action=list_contact");                           
+                }
         }
         $list_contact = get_list_contact();
         $data['list_contact']= $list_contact;
@@ -133,10 +133,10 @@
     // Sửa thông tin liên hệ
     function edit_contactAction() {
         $lienhe_id = (int)$_GET['lienhe_id'];
-        $contact = db_fetch_row("SELECT * FROM contacts WHERE lienhe_id = {$lienhe_id}");
+        $contact = db_fetch_row("SELECT * FROM tbl_lienhe WHERE lienhe_id = {$lienhe_id}");
 
         if (!$contact) {
-            redirect('?mod=contact&controller=ContactController&action=list_contacts');
+            redirect('?mod=contact&controller=index&action=list_contact');
         }
 
         if (isset($_POST['btn_submit'])) {
@@ -164,8 +164,8 @@
                     'kieu' => $kieu,
                     'job' => $job
                 ];
-                db_update('contacts', $data, "lienhe_id = {$lienhe_id}");
-                redirect('?mod=contact&controller=ContactController&action=list_contacts');
+                db_update('tbl_lienhe', $data, "lienhe_id = {$lienhe_id}");
+                redirect('?mod=contact&controller=index&action=list_contact');
             }
         }
 

@@ -14,7 +14,7 @@ function get_list_post_cat(){
     return $result;
 }
 function get_list_postt($start=1,$num_per_page=10,$where=""){
-    $result = db_fetch_array("SELECT * FROM `tbl_post` ,`tbl_post_cat`,`tbl_users` WHERE `tbl_post`.`post_cat_id`=`tbl_post_cat`.`post_cat_id` &&`tbl_post`.`user_id`=`tbl_users`.`user_id` && `thungrac`='0' LIMIT {$start},{$num_per_page}");
+    $result = db_fetch_array("SELECT * FROM `tbl_post`,`tbl_users` WHERE `tbl_post`.`user_id`=`tbl_users`.`user_id` && `thungrac`='0' LIMIT {$start},{$num_per_page}");
     return $result;
 }
 function get_list_post_th($trangthai){
@@ -93,5 +93,21 @@ function cat_post(){
         return $result;
     }
 }
+
+function get_cap_by_parent_id( $danhmuc_id_cha) {
+    $result = db_fetch_array("SELECT * FROM `tbl_danhmuc` WHERE `danhmuc_id_cha` = {$danhmuc_id_cha}");
+    return $result;
+}
+
+function get_ten_cat_by_id($danhmuc_id) {
+    $result = db_fetch_row("SELECT `ten_danhmuc` FROM `tbl_danhmuc` WHERE `danhmuc_id` = {$danhmuc_id}");
+    return $result;
+}
+
+function get_danhmuc_cap1() {
+    $result = db_fetch_array("SELECT * FROM `tbl_danhmuc` WHERE `cap` = 1 AND `kieu` = 3");
+    return $result;
+}
+
 
 ?>

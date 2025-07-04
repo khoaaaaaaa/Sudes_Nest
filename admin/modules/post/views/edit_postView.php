@@ -17,8 +17,13 @@ get_header();
                     <?php echo form_error('post_title')?>
                 </div>
                 <div class="form-group">
+                    <label for="content">Mô tả bài viết</label>
+                    <textarea name="mota" id="desc" class="form-control" id="content" cols="30" rows="5"><?php echo $post['mota']?></textarea>
+                    <?php echo form_error('mota')?>
+                </div>
+                <div class="form-group">
                     <label for="content">Nội dung bài viết</label>
-                    <textarea name="post_description" class="form-control" id="content" cols="30" rows="5"><?php echo $post['post_description']?></textarea>
+                    <textarea name="post_description" id="desc" class="textarea"><?php echo $post['post_description']?></textarea>
                     <?php echo form_error('post_description')?>
                 </div>
                 <div class="form-group">
@@ -28,33 +33,95 @@ get_header();
                     <?php echo form_error('post_detail')?>
                 </div>
                 <div class="form-group">
-                    <label>Hình ảnh</label>
+                    <label>Hình ảnh bài viết</label>
                     <div class="custom-file">
                         <input type="file" name="file" class="custom-file-input" id="customFile" onchange="chooseFile(this)">
                         <label class="custom-file-label" for="customFile">Choose file</label>
                          
                     </div>
-                    
                     <div class="mt-3"> <img id="image" width="300px" height="300px" src="public/images/<?php echo $post['img']?>"></div>
                 </div>
+                
 
-
-                <div class="form-group">
-                    <label>Danh mục cha</label>
-                    <select name="post_cat_id" class="form-control">
-                        <option value="">-- Chọn danh mục --</option>
-                        <?php
-                        foreach($list_post_cat as $item)
-                        {
+                <div class="form-group" >
+                    <label for="">Danh mục</label>
+                    <select id="danhmuc_select" name="danhmuc_id_cha" class="form-control" onchange="updateCategoryFields()">
+                        <option value="0" data-cap="0" data-parent="0">--Chọn--</option>
+                        <?php 
+                            $list_dm_sp_cap1 = get_danhmuc_cap1();
+                            foreach($list_dm_sp_cap1 as $dm_cap1){
+                                $selected_cap1 = ($dm_cap1['danhmuc_id'] == $post['cap1']) ? 'selected' : '';
                         ?>
-                        <option value="<?php echo $item['post_cat_id']?>" <?php if($item['post_cat_id']==$post['post_cat_id']){echo 'selected="selected"';}?>><?php echo $item['post_cat_id']." - ".$item['post_cat_title']?></option>
-                    
-                        <?php
-                        }
-                        ?>
+                            <option style="color: #18cc09; font-weight: 500;" value="<?php echo $dm_cap1['danhmuc_id']; ?>" data-cap="cap1" data-parent="0" <?php echo $selected_cap1; ?>><?php echo $dm_cap1['ten_danhmuc']; ?></option>
+                            <?php
+                                $list_dm_sp_cap2 = get_cap_by_parent_id($dm_cap1['danhmuc_id']);
+                                foreach($list_dm_sp_cap2 as $dm_cap2){
+                                    $selected_cap2 = ($dm_cap2['danhmuc_id'] == $post['cap2']) ? 'selected' : '';
+                            ?>
+                                <option style="color: #ea6edd; font-weight: 500;" value="<?php echo $dm_cap2['danhmuc_id']; ?>" data-cap="cap2" data-parent="<?php echo $dm_cap1['danhmuc_id']; ?>" <?php echo $selected_cap2; ?>>---/ <?php echo $dm_cap2['ten_danhmuc']; ?></option>
+                                <?php
+                                    $list_dm_sp_cap3 = get_cap_by_parent_id($dm_cap2['danhmuc_id']);
+                                    foreach($list_dm_sp_cap3 as $dm_cap3){
+                                        $selected_cap3 = ($dm_cap3['danhmuc_id'] == $post['cap3']) ? 'selected' : '';
+                                ?>
+                                    <option style="color: #4eacbb; font-weight: 500;" value="<?php echo $dm_cap3['danhmuc_id']; ?>" data-cap="cap3" data-parent="<?php echo $dm_cap2['danhmuc_id']; ?>" <?php echo $selected_cap3; ?>>---/---/<?php echo $dm_cap3['ten_danhmuc']; ?></option>
+                                    <?php
+                                        $list_dm_sp_cap4 = get_cap_by_parent_id($dm_cap3['danhmuc_id']);
+                                        foreach($list_dm_sp_cap4 as $dm_cap4){
+                                            $selected_cap4 = ($dm_cap4['danhmuc_id'] == $post['cap4']) ? 'selected' : '';
+                                    ?>
+                                        <option style="color: #676caa; font-weight: 500;" value="<?php echo $dm_cap4['danhmuc_id']; ?>" data-cap="cap4" data-parent="<?php echo $dm_cap3['danhmuc_id']; ?>" <?php echo $selected_cap4; ?>>---/---/---/<?php echo $dm_cap4['ten_danhmuc']; ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php }?>
                     </select>
-                    <?php echo form_error('post_cat_id')?>
+
+                    <!-- Trường ẩn để lưu từng cấp danh mục -->
+                    <input type="hidden" id="cap1_field" name="cap1" value="<?php echo $post['cap1']; ?>">
+                    <input type="hidden" id="cap2_field" name="cap2" value="<?php echo $post['cap2']; ?>">
+                    <input type="hidden" id="cap3_field" name="cap3" value="<?php echo $post['cap3']; ?>">
+                    <input type="hidden" id="cap4_field" name="cap4" value="<?php echo $post['cap4']; ?>">
                 </div>
+
+                <script> 
+                    function updateCategoryFields() {
+                        const select = document.getElementById("danhmuc_select");
+                        const selectedOption = select.options[select.selectedIndex];
+
+                        // Lấy giá trị của danh mục được chọn
+                        const selectedValue = select.value;
+                        const selectedCap = selectedOption.getAttribute("data-cap");
+                        const parentId = selectedOption.getAttribute("data-parent");
+
+                        // Reset tất cả các trường ẩn
+                        document.getElementById("cap1_field").value = "";
+                        document.getElementById("cap2_field").value = "";
+                        document.getElementById("cap3_field").value = "";
+                        document.getElementById("cap4_field").value = "";
+
+                        // Cập nhật giá trị từ cấp thấp nhất lên cấp cao nhất
+                        if (selectedCap === "cap4") {
+                            const parentCap3 = select.querySelector(`option[value="${parentId}"]`).getAttribute("data-parent");
+                            const parentCap2 = select.querySelector(`option[value="${parentCap3}"]`).getAttribute("data-parent");
+                            document.getElementById("cap1_field").value = parentCap2; // Lấy ID cấp 1
+                            document.getElementById("cap2_field").value = parentCap3; // Lấy ID cấp 2
+                            document.getElementById("cap3_field").value = parentId;  // Lấy ID cấp 3
+                            document.getElementById("cap4_field").value = selectedValue; // Lấy ID cấp 4
+                        } else if (selectedCap === "cap3") {
+                            const parentCap2 = select.querySelector(`option[value="${parentId}"]`).getAttribute("data-parent");
+                            document.getElementById("cap1_field").value = parentCap2; // Lấy ID cấp 1
+                            document.getElementById("cap2_field").value = parentId;  // Lấy ID cấp 2
+                            document.getElementById("cap3_field").value = selectedValue; // Lấy ID cấp 3
+                        } else if (selectedCap === "cap2") {
+                            document.getElementById("cap1_field").value = parentId;  // Lấy ID cấp 1
+                            document.getElementById("cap2_field").value = selectedValue; // Lấy ID cấp 2
+                        } else if (selectedCap === "cap1") {
+                            document.getElementById("cap1_field").value = selectedValue; // Lấy ID cấp 1
+                        }
+                    }
+                </script>
+                
                 <div class="form-group">
                     <label for="">Trạng thái</label>
                     <div class="form-check">
@@ -70,6 +137,13 @@ get_header();
                         </label>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div style="display: flex;">
+                        <input style="margin-bottom: 9px;" type="checkbox" name='noibat' value="1" id="rules" <?php if($post['noibat']=='1'){echo 'checked';}?>>
+                        <label style="margin-left: 10px;">Bài viết nổi bật</label><br>
+                    </div>
+                </div>
+
                 <button type="submit" name="btn-edit" class="btn btn-primary">Cập nhật</button>
             </form>
         </div>

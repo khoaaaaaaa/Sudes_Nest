@@ -47,9 +47,7 @@ get_header();
                         </th>
                         <th scope="col">#</th>
                         <th scope="col">Ảnh</th>
-                        <th scope="col">Tiêu đề</th>
-                        <th scope="col">Danh mục</th>
-                        <th scope="col">Người tạo - Ngày tạo</th>
+                        <th scope="col">Thông tin bài viết</th>
                         <th scope="col">Tác vụ</th>
                     </tr>
                 </thead>
@@ -77,21 +75,29 @@ get_header();
                         <td scope="row"><?php echo $stt;$stt++?></td>
 
                         <td>
-                            <a href="" title=""><img width="200px;" height="120px;" src="public/images/<?php echo $item['img']?>" alt=""></a>
+                            <a href="" title=""><img width="200px;" height="130px;" src="public/images/<?php echo $item['img']?>" alt=""></a>
                         </td>
 
-                        <td style="width: 26%;"><a style=" display: -webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;" href="#"><?php echo $item['post_title']?></a></td>
-                        <td><?php echo $item['post_cat_title']?></td>
-                        <td>
-                            <?php echo $item['fullname']."<br>"?>
-                            <?php echo $item['time']?>
+                        <td style="text-align: left;">
+                            <a style=" display: -webkit-box;-webkit-line-clamp:2;-webkit-box-orient: vertical;overflow: hidden;" href="#"><strong>Tên bài viết: </strong><?php echo $item['post_title']?></a>
+                            <span style="font-weight: bold; color:rgb(61, 61, 255);">Danh mục:
+                                <?php
+                                    // Hiển thị danh mục từ cấp 1 đến cấp 4 và ngăn cách bằng dấu "/"
+                                    $categories = [];
+                                    if (!empty($item['ten_cap1'])) $categories[] = $item['ten_cap1'];
+                                    if (!empty($item['ten_cap2'])) $categories[] = $item['ten_cap2'];
+                                    if (!empty($item['ten_cap3'])) $categories[] = $item['ten_cap3'];
+                                    if (!empty($item['ten_cap4'])) $categories[] = $item['ten_cap4'];
+                                    echo implode(' / ', $categories);
+                                ?>
+                            </span> 
+                            <br>
+                            <span>Người tạo: <?php echo $item['fullname']."<br>"?></span>
+                            <span>Ngày tạo: <?php echo $item['time']?></span>
+
                         </td>
-                       
-                        <td>
-                           
+                        
+                        <td>   
                             <?php $action=$_GET['action'] ; 
                                 if($action=='list_post'){
                             ?>

@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 });
 
-
+// Xử lý chuyển đổi các tab sản phẩm ở trang chủ
 $(".not-dqtab").each( function(e){
 	/*khai báo khởi tạo ban đầu cho 2 kiểu tab*/
 	var $this1 = $(this);
@@ -62,6 +62,20 @@ $(".not-dqtab").each( function(e){
 	});
 
 });
+
+
+	$('.sort-cate .btn-filter').click(function(){
+		$(".layout-collection .left-content").toggleClass('active');
+		$(".backdrop__body-backdrop___1rvky").toggleClass('active');
+	});
+	$('.backdrop__body-backdrop___1rvky').click(function(){
+		$(".layout-collection .left-content").removeClass('active');
+		$(this).toggleClass('active');
+	});
+	$('.close-filters').click(function(){
+		$(".layout-collection .left-content").removeClass('active');
+		$('.backdrop__body-backdrop___1rvky').removeClass('active');
+	});
 
 /************/
 window.awe = window.awe || {};
@@ -538,208 +552,207 @@ $(document).ready(function(){
 	})
 });
 
-function doSearch(page, options) {
-	if(!options) options = {};
-	//NProgress.start();
-	$('.aside.aside-mini-products-list.filter').removeClass('active');
-	awe_showPopup('.loading');
-	filter.search({
-		view: selectedViewData,
-		page: page,
-		sortby: selectedSortby,
-		success: function (html) {
-			var $html = $(html);
-			// Muốn thay thẻ DIV nào khi filter thì viết như này
-			var $categoryProducts = $($html[0]); 
-			$(".category-products").html($categoryProducts.html());
-			pushCurrentFilterState({sortby: selectedSortby, page: page});
-			awe_hidePopup('.loading');				  
-			awe_lazyloadImage();
-			awe_category();
+// function doSearch(page, options) {
+// 	if(!options) options = {};
+// 	//NProgress.start();
+// 	$('.aside.aside-mini-products-list.filter').removeClass('active');
+// 	awe_showPopup('.loading');
+// 	filter.search({
+// 		view: selectedViewData,
+// 		page: page,
+// 		sortby: selectedSortby,
+// 		success: function (html) {
+// 			var $html = $(html);
+// 			// Muốn thay thẻ DIV nào khi filter thì viết như này
+// 			var $categoryProducts = $($html[0]); 
+// 			$(".category-products").html($categoryProducts.html());
+// 			pushCurrentFilterState({sortby: selectedSortby, page: page});
+// 			awe_hidePopup('.loading');				  
+// 			awe_lazyloadImage();
+// 			awe_category();
 			
-			favoriSudes.Wishlist.wishlistProduct();
+// 			favoriSudes.Wishlist.wishlistProduct();
 			
-			if(window.BPR)
-				return window.BPR.initDomEls(), window.BPR.loadBadges();
-			if(window.ABProdStats){
-				window.ABProdStats.abInitProductStats()
-			}
-			$('.btn-filter').click(function(){
-				$(".left-content").toggleClass('active');
-				$(".backdrop__body-backdrop___1rvky").addClass('active');
-			});
-			if($(window).width() <= 991) {
-				$('.sort-cate-right h3').on('click', function(e){
-					e.preventDefault();var $this = $(this);
-					$this.parents('.sort-cate-right').find('ul').stop().slideToggle();
-					$(this).toggleClass('active');
-					return false;
-				});
-			}
-			$('.add_to_cart').click(function(e){	
-				e.preventDefault();		
-				var $this = $(this);
-				var form = $this.parents('form');	
-				$.ajax({
-					type: 'POST',
-					url: '/cart/add.js',
-					async: false,
-					data: form.serialize(),
-					dataType: 'json',
-					beforeSend: function() { },
-					success: function(line_item) {
-						ajaxCart.load();
-						$('.popup-cart-mobile, .backdrop__body-backdrop___1rvky').addClass('active');
-						AddCartMobile(line_item);
-					},
-					cache: false
-				});
-			});
-			$('html, body').animate({
-				scrollTop: $('.block-collection').offset().top
-			}, 0);
-			$('#open-filters').removeClass('openf');
-			$('.dqdt-sidebar').removeClass('openf');
-			$('.opacity_sidebar').removeClass('openf');
-			resortby(selectedSortby);
-			$(document).ready(function () {
-				var modal = $('.quickview-product');
-				var btn = $('.quick-view');
-				var span = $('.quickview-close');
+// 			if(window.BPR)
+// 				return window.BPR.initDomEls(), window.BPR.loadBadges();
+// 			if(window.ABProdStats){
+// 				window.ABProdStats.abInitProductStats()
+// 			}
+// 			$('.btn-filter').click(function(){
+// 				$(".left-content").toggleClass('active');
+// 				$(".backdrop__body-backdrop___1rvky").addClass('active');
+// 			});
+// 			if($(window).width() <= 991) {
+// 				$('.sort-cate-right h3').on('click', function(e){
+// 					e.preventDefault();var $this = $(this);
+// 					$this.parents('.sort-cate-right').find('ul').stop().slideToggle();
+// 					$(this).toggleClass('active');
+// 					return false;
+// 				});
+// 			}
+// 			$('.add_to_cart').click(function(e){	
+// 				e.preventDefault();		
+// 				var $this = $(this);
+// 				var form = $this.parents('form');	
+// 				$.ajax({
+// 					type: 'POST',
+// 					url: '/cart/add.js',
+// 					async: false,
+// 					data: form.serialize(),
+// 					dataType: 'json',
+// 					beforeSend: function() { },
+// 					success: function(line_item) {
+// 						ajaxCart.load();
+// 						$('.popup-cart-mobile, .backdrop__body-backdrop___1rvky').addClass('active');
+// 						AddCartMobile(line_item);
+// 					},
+// 					cache: false
+// 				});
+// 			});
+// 			$('html, body').animate({
+// 				scrollTop: $('.block-collection').offset().top
+// 			}, 0);
+// 			$('#open-filters').removeClass('openf');
+// 			$('.dqdt-sidebar').removeClass('openf');
+// 			$('.opacity_sidebar').removeClass('openf');
+// 			resortby(selectedSortby);
+// 			$(document).ready(function () {
+// 				var modal = $('.quickview-product');
+// 				var btn = $('.quick-view');
+// 				var span = $('.quickview-close');
 
-				btn.click(function () {
-					modal.show();
-				});
+// 				btn.click(function () {
+// 					modal.show();
+// 				});
 
-				span.click(function () {
-					modal.hide();
-				});
+// 				span.click(function () {
+// 					modal.hide();
+// 				});
 
-				$(window).on('click', function (e) {
-					if ($(e.target).is('.modal')) {
-						modal.hide();
-					}
-				});
-			});
+// 				$(window).on('click', function (e) {
+// 					if ($(e.target).is('.modal')) {
+// 						modal.hide();
+// 					}
+// 				});
+// 			});
 
-			var _0xa1c3=["\x74\x68\x65\x6D\x65"];window[_0xa1c3[0]]= window[_0xa1c3[0]]|| {}
-			theme.wishlist = (function (){
-				var wishlistButtonClass = '.js-btn-wishlist',
-					wishlistRemoveButtonClass = '.js-remove-wishlist',
-					$wishlistCount = $('.js-wishlist-count'),
-					$wishlistContainer = $('.js-wishlist-content'),
-					$wishlistSmall = $('.wish-list-small'),
-					wishlistViewAll = $('.wish-list-button-all'),
-					wishlistObject = JSON.parse(localStorage.getItem('localWishlist')) || [],
-					wishlistPageUrl = $('.js-wishlist-link').attr('href'),
-					loadNoResult = function (){
-						$wishlistContainer.html('<div class="col text-center"><div class="alert alert-warning d-inline-block"><p>Chưa có sản phẩm yêu thích! Hãy lựa chọn những sản phẩm ưa thích của mình nào.</p></div></div>');
-						$wishlistSmall.html('<div class="empty-description"><span class="empty-icon"><i class="ico ico-favorite-heart"></i></span><div class="empty-text"><p>Chưa có sản phẩm yêu thích! Hãy lựa chọn những sản phẩm ưa thích của mình nào.</p></div></div><style>.container--wishlist .js-wishlist-content{border:none;}</style>');
-						wishlistViewAll.addClass('d-none');
-					};
-				function loadSmallWishList(){
-					$wishlistSmall.html('');
-					if(wishlistObject.length > 0){
-						for (var i = 0; i < wishlistObject.length; i++) { 
-							var productHandle = wishlistObject[i];
-							Bizweb.getProduct(productHandle,function(product){
-								var htmlSmallProduct = '';
-								if(product.variants[0].price > 0 ){
-									var productPrice = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].price);
-								}else{
-									var productPrice = "Liên hệ";
-								}
-								if(product.featured_image != null){
-									var src = product.featured_image;
-								}else{
-									var src = "//bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif";
-								}
-								htmlSmallProduct += '<div class="wish-list-item-small js-wishlist-item clearfix">';
-								htmlSmallProduct += '<a class="product-image" href="'+ product.url +'" title="'+ product.name +'">';
-								htmlSmallProduct += '<img class="lazyload" alt="'+ product.name +'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="'+ src +'" width="370" height="480"></a>';
-								htmlSmallProduct += '<div class="detail-item"><div class="product-details">';
-								htmlSmallProduct += '<a href="javascript:;" data-handle="'+product.alias+'" title="Bỏ yêu thích" class="js-remove-wishlist">×</a>';
-								htmlSmallProduct += '<p class="product-name">';
-								htmlSmallProduct += '<a href="'+ product.url +'" title="'+ product.name +'">'+ product.name +'</a>';
-								htmlSmallProduct += '</p></div><div class="product-details-bottom">';
-								htmlSmallProduct += '<span class="price pricechange">' +productPrice+ '</span>';
-								htmlSmallProduct += '</div></div></div>';
-								$wishlistSmall.append(htmlSmallProduct);
-								awe_lazyloadImage();
-							});
-						}
-						wishlistViewAll.removeClass('d-none');
-					}else{
-						loadNoResult();
-					}
-				}
-				function loadWishlist(){
-					$wishlistContainer.html('');
-					if (wishlistObject.length > 0){
-						for (var i = 0; i < wishlistObject.length; i++) { 
-							var productHandle = wishlistObject[i];
-							Bizweb.getProduct(productHandle,function(product){
-								var htmlProduct = '';
-								var i;
-								if(product.variants[0].price > 0 ){
-									var productPrice = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].price);
-								}else{
-									var productPrice = "Liên hệ";
-								}
-								if(product.variants[0].compare_at_price > product.variants[0].price ){
-									var productPriceCompare = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].compare_at_price);
-									var productDiscount = Math.round((product.variants[0].compare_at_price - product.variants[0].price)/product.variants[0].compare_at_price * 100);
-								}
-								if(product.featured_image != null){
-									var src = Bizweb.resizeImage(product.featured_image, 'large');
-								}else{
-									var src = "//bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif";
-								}
+// 			var _0xa1c3=["\x74\x68\x65\x6D\x65"];window[_0xa1c3[0]]= window[_0xa1c3[0]]|| {}
+// 			theme.wishlist = (function (){
+// 				var wishlistButtonClass = '.js-btn-wishlist',
+// 					wishlistRemoveButtonClass = '.js-remove-wishlist',
+// 					$wishlistCount = $('.js-wishlist-count'),
+// 					$wishlistContainer = $('.js-wishlist-content'),
+// 					$wishlistSmall = $('.wish-list-small'),
+// 					wishlistViewAll = $('.wish-list-button-all'),
+// 					wishlistObject = JSON.parse(localStorage.getItem('localWishlist')) || [],
+// 					wishlistPageUrl = $('.js-wishlist-link').attr('href'),
+// 					loadNoResult = function (){
+// 						$wishlistContainer.html('<div class="col text-center"><div class="alert alert-warning d-inline-block"><p>Chưa có sản phẩm yêu thích! Hãy lựa chọn những sản phẩm ưa thích của mình nào.</p></div></div>');
+// 						$wishlistSmall.html('<div class="empty-description"><span class="empty-icon"><i class="ico ico-favorite-heart"></i></span><div class="empty-text"><p>Chưa có sản phẩm yêu thích! Hãy lựa chọn những sản phẩm ưa thích của mình nào.</p></div></div><style>.container--wishlist .js-wishlist-content{border:none;}</style>');
+// 						wishlistViewAll.addClass('d-none');
+// 					};
+// 				function loadSmallWishList(){
+// 					$wishlistSmall.html('');
+// 					if(wishlistObject.length > 0){
+// 						for (var i = 0; i < wishlistObject.length; i++) { 
+// 							var productHandle = wishlistObject[i];
+// 							Bizweb.getProduct(productHandle,function(product){
+// 								var htmlSmallProduct = '';
+// 								if(product.variants[0].price > 0 ){
+// 									var productPrice = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].price);
+// 								}else{
+// 									var productPrice = "Liên hệ";
+// 								}
+// 								if(product.featured_image != null){
+// 									var src = product.featured_image;
+// 								}else{
+// 									var src = "//bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif";
+// 								}
+// 								htmlSmallProduct += '<div class="wish-list-item-small js-wishlist-item clearfix">';
+// 								htmlSmallProduct += '<a class="product-image" href="'+ product.url +'" title="'+ product.name +'">';
+// 								htmlSmallProduct += '<img class="lazyload" alt="'+ product.name +'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="'+ src +'" width="370" height="480"></a>';
+// 								htmlSmallProduct += '<div class="detail-item"><div class="product-details">';
+// 								htmlSmallProduct += '<a href="javascript:;" data-handle="'+product.alias+'" title="Bỏ yêu thích" class="js-remove-wishlist">×</a>';
+// 								htmlSmallProduct += '<p class="product-name">';
+// 								htmlSmallProduct += '<a href="'+ product.url +'" title="'+ product.name +'">'+ product.name +'</a>';
+// 								htmlSmallProduct += '</p></div><div class="product-details-bottom">';
+// 								htmlSmallProduct += '<span class="price pricechange">' +productPrice+ '</span>';
+// 								htmlSmallProduct += '</div></div></div>';
+// 								$wishlistSmall.append(htmlSmallProduct);
+// 								awe_lazyloadImage();
+// 							});
+// 						}
+// 						wishlistViewAll.removeClass('d-none');
+// 					}else{
+// 						loadNoResult();
+// 					}
+// 				}
+// 				function loadWishlist(){
+// 					$wishlistContainer.html('');
+// 					if (wishlistObject.length > 0){
+// 						for (var i = 0; i < wishlistObject.length; i++) { 
+// 							var productHandle = wishlistObject[i];
+// 							Bizweb.getProduct(productHandle,function(product){
+// 								var htmlProduct = '';
+// 								var i;
+// 								if(product.variants[0].price > 0 ){
+// 									var productPrice = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].price);
+// 								}else{
+// 									var productPrice = "Liên hệ";
+// 								}
+// 								if(product.variants[0].compare_at_price > product.variants[0].price ){
+// 									var productPriceCompare = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].compare_at_price);
+// 									var productDiscount = Math.round((product.variants[0].compare_at_price - product.variants[0].price)/product.variants[0].compare_at_price * 100);
+// 								}
+// 								if(product.featured_image != null){
+// 									var src = Bizweb.resizeImage(product.featured_image, 'large');
+// 								}else{
+// 									var src = "//bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif";
+// 								}
 
-								htmlProduct += '<div class="col-6 col-sm-6 col-md-4 col-lg-3 item_product_main js-wishlist-item">';
-								htmlProduct += '<div class="product-thumbnail">';
-								htmlProduct += '<a class="image_thumb" href="'+ product.url +'" title="'+ product.name +'">';
-								htmlProduct += '<img class="lazyload" width="370" height="480" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="'+ src +'" alt="'+ product.name +'" />';
-								htmlProduct += '</a>';
-								if(product.variants[0].compare_at_price > product.variants[0].price ){
-									htmlProduct += '<span class="smart">-' +productDiscount+ '%</span>';
-								}
-								htmlProduct += '<button type="button" class="favorites-btn favorites-btn-cus js-favorites js-remove-wishlist cart-button" title="Bỏ yêu thích" data-handle="'+product.alias+'"><img width="25" height="25" class="fash-added" src="https://bizweb.dktcdn.net/100/451/884/themes/857425/assets/heartadd.png?1649958365417"/></button></div>';
-								htmlProduct += '<div class="product-info"><h3 class="product-name"><a href="'+ product.url +'" title="'+ product.name +'">'+ product.name +'</a></h3>';					
-								htmlProduct += '<div class="price-box">';
-								htmlProduct += '<span class="price">' +productPrice+ '</span>';
-								if(product.variants[0].compare_at_price > product.variants[0].price ){
-									htmlProduct += '<span class="compare-price">' +productPriceCompare+ '</span>';
-								}
-								htmlProduct += '</div>';
-								htmlProduct += '</div>';
-								$wishlistContainer.append(htmlProduct);
-								awe_lazyloadImage();
-							});
-						}
-					}else{
-						loadNoResult();
-					}
-					$wishlistCount.text(wishlistObject.length);
-					$(wishlistButtonClass).each(function(){
-						var productHandle = $(this).data('handle');
-						var iconWishlist = $.inArray(productHandle,wishlistObject) !== -1 ? "<img class='fash-added' alt='Đến trang sản phẩm yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/451/884/themes/857425/assets/heartadd.png?1649958365417'/>" : "<img alt='Thêm vào yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/423/358/themes/852010/assets/heart.png?1645678264903'/>";
-						var textWishlist = $.inArray(productHandle,wishlistObject) !== -1 ? "Đến trang sản phẩm yêu thích" : "Thêm vào yêu thích";
-						$(this).html(iconWishlist).attr('title',textWishlist);
-					});
-				}
-				var _0xcd91=["\x68\x61\x6E\x64\x6C\x65","\x64\x61\x74\x61","\x5B\x64\x61\x74\x61\x2D\x68\x61\x6E\x64\x6C\x65\x3D\x22","\x22\x5D","\x69\x6E\x41\x72\x72\x61\x79","\x68\x72\x65\x66","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x70\x75\x73\x68","\x77\x69\x73\x68\x6C\x69\x73\x74\x49\x63\x6F\x6E\x41\x64\x64\x65\x64","\x73\x74\x72\x69\x6E\x67\x73","\x68\x74\x6D\x6C","\x66\x61\x73\x74","\x66\x61\x64\x65\x49\x6E","\x73\x6C\x6F\x77","\x66\x61\x64\x65\x4F\x75\x74","\x74\x69\x74\x6C\x65","\x77\x69\x73\x68\x6C\x69\x73\x74\x54\x65\x78\x74\x41\x64\x64\x65\x64","\x61\x74\x74\x72","\x6C\x6F\x63\x61\x6C\x57\x69\x73\x68\x6C\x69\x73\x74","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x73\x65\x74\x49\x74\x65\x6D","\x6C\x65\x6E\x67\x74\x68","\x74\x65\x78\x74"];function updateWishlist(_0xfc06x2){var _0xfc06x3=$(_0xfc06x2)[_0xcd91[1]](_0xcd91[0]),_0xfc06x4=$(wishlistButtonClass+ _0xcd91[2]+ _0xfc06x3+ _0xcd91[3]);var _0xfc06x5=$[_0xcd91[4]](_0xfc06x3,wishlistObject)!==  -1?true:false;if(_0xfc06x5){window[_0xcd91[6]][_0xcd91[5]]= wishlistPageUrl}else {wishlistObject[_0xcd91[7]](_0xfc06x3);_0xfc06x4[_0xcd91[14]](_0xcd91[13])[_0xcd91[12]](_0xcd91[11])[_0xcd91[10]](theme[_0xcd91[9]][_0xcd91[8]]);_0xfc06x4[_0xcd91[17]](_0xcd91[15],theme[_0xcd91[9]][_0xcd91[16]])};localStorage[_0xcd91[20]](_0xcd91[18],JSON[_0xcd91[19]](wishlistObject));loadSmallWishList();$wishlistCount[_0xcd91[22]](wishlistObject[_0xcd91[21]])}
-				var _0xd3ea=["\x63\x6C\x69\x63\x6B","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x6F\x6E","\x68\x61\x6E\x64\x6C\x65","\x64\x61\x74\x61","\x5B\x64\x61\x74\x61\x2D\x68\x61\x6E\x64\x6C\x65\x3D\x22","\x22\x5D","\x77\x69\x73\x68\x6C\x69\x73\x74\x49\x63\x6F\x6E","\x73\x74\x72\x69\x6E\x67\x73","\x68\x74\x6D\x6C","\x74\x69\x74\x6C\x65","\x77\x69\x73\x68\x6C\x69\x73\x74\x54\x65\x78\x74","\x61\x74\x74\x72","\x69\x6E\x64\x65\x78\x4F\x66","\x73\x70\x6C\x69\x63\x65","\x6C\x6F\x63\x61\x6C\x57\x69\x73\x68\x6C\x69\x73\x74","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x73\x65\x74\x49\x74\x65\x6D","\x66\x61\x64\x65\x4F\x75\x74","\x2E\x6A\x73\x2D\x77\x69\x73\x68\x6C\x69\x73\x74\x2D\x69\x74\x65\x6D","\x63\x6C\x6F\x73\x65\x73\x74","\x6C\x65\x6E\x67\x74\x68","\x74\x65\x78\x74"];$(document)[_0xd3ea[2]](_0xd3ea[0],wishlistButtonClass,function(_0xdfa5x1){_0xdfa5x1[_0xd3ea[1]]();updateWishlist(this)});$(document)[_0xd3ea[2]](_0xd3ea[0],wishlistRemoveButtonClass,function(){var _0xdfa5x2=$(this)[_0xd3ea[4]](_0xd3ea[3]),_0xdfa5x3=$(wishlistButtonClass+ _0xd3ea[5]+ _0xdfa5x2+ _0xd3ea[6]);_0xdfa5x3[_0xd3ea[9]](theme[_0xd3ea[8]][_0xd3ea[7]]);_0xdfa5x3[_0xd3ea[12]](_0xd3ea[10],theme[_0xd3ea[8]][_0xd3ea[11]]);wishlistObject[_0xd3ea[14]](wishlistObject[_0xd3ea[13]](_0xdfa5x2),1);localStorage[_0xd3ea[17]](_0xd3ea[15],JSON[_0xd3ea[16]](wishlistObject));$(this)[_0xd3ea[20]](_0xd3ea[19])[_0xd3ea[18]]();$wishlistCount[_0xd3ea[22]](wishlistObject[_0xd3ea[21]]);if(wishlistObject[_0xd3ea[21]]=== 0){loadNoResult()}});loadWishlist();loadSmallWishList();return {load:loadWishlist}
-			})()
-			theme.strings = {
-				wishlistNoResult: "<p>Chưa có sản phẩm yêu thích! Hãy lựa chọn những sản phẩm ưa thích của mình nào.</p>",
-				wishlistIcon: "<img  alt='Thêm vào yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/423/358/themes/852010/assets/heart.png?1645678264903'/>",
-				wishlistIconAdded: "<img class='fash-added'  alt='Đến trang sản phẩm yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/451/884/themes/857425/assets/heartadd.png?1649958365417'/>",
-				wishlistText: "Thêm vào yêu thích",
-				wishlistTextAdded: "Đến trang sản phẩm yêu thích",
-				wishlistRemove: "Xóa"
-			};
-		}
-	});		
-}
-
+// 								htmlProduct += '<div class="col-6 col-sm-6 col-md-4 col-lg-3 item_product_main js-wishlist-item">';
+// 								htmlProduct += '<div class="product-thumbnail">';
+// 								htmlProduct += '<a class="image_thumb" href="'+ product.url +'" title="'+ product.name +'">';
+// 								htmlProduct += '<img class="lazyload" width="370" height="480" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="'+ src +'" alt="'+ product.name +'" />';
+// 								htmlProduct += '</a>';
+// 								if(product.variants[0].compare_at_price > product.variants[0].price ){
+// 									htmlProduct += '<span class="smart">-' +productDiscount+ '%</span>';
+// 								}
+// 								htmlProduct += '<button type="button" class="favorites-btn favorites-btn-cus js-favorites js-remove-wishlist cart-button" title="Bỏ yêu thích" data-handle="'+product.alias+'"><img width="25" height="25" class="fash-added" src="https://bizweb.dktcdn.net/100/451/884/themes/857425/assets/heartadd.png?1649958365417"/></button></div>';
+// 								htmlProduct += '<div class="product-info"><h3 class="product-name"><a href="'+ product.url +'" title="'+ product.name +'">'+ product.name +'</a></h3>';					
+// 								htmlProduct += '<div class="price-box">';
+// 								htmlProduct += '<span class="price">' +productPrice+ '</span>';
+// 								if(product.variants[0].compare_at_price > product.variants[0].price ){
+// 									htmlProduct += '<span class="compare-price">' +productPriceCompare+ '</span>';
+// 								}
+// 								htmlProduct += '</div>';
+// 								htmlProduct += '</div>';
+// 								$wishlistContainer.append(htmlProduct);
+// 								awe_lazyloadImage();
+// 							});
+// 						}
+// 					}else{
+// 						loadNoResult();
+// 					}
+// 					$wishlistCount.text(wishlistObject.length);
+// 					$(wishlistButtonClass).each(function(){
+// 						var productHandle = $(this).data('handle');
+// 						var iconWishlist = $.inArray(productHandle,wishlistObject) !== -1 ? "<img class='fash-added' alt='Đến trang sản phẩm yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/451/884/themes/857425/assets/heartadd.png?1649958365417'/>" : "<img alt='Thêm vào yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/423/358/themes/852010/assets/heart.png?1645678264903'/>";
+// 						var textWishlist = $.inArray(productHandle,wishlistObject) !== -1 ? "Đến trang sản phẩm yêu thích" : "Thêm vào yêu thích";
+// 						$(this).html(iconWishlist).attr('title',textWishlist);
+// 					});
+// 				}
+// 				var _0xcd91=["\x68\x61\x6E\x64\x6C\x65","\x64\x61\x74\x61","\x5B\x64\x61\x74\x61\x2D\x68\x61\x6E\x64\x6C\x65\x3D\x22","\x22\x5D","\x69\x6E\x41\x72\x72\x61\x79","\x68\x72\x65\x66","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x70\x75\x73\x68","\x77\x69\x73\x68\x6C\x69\x73\x74\x49\x63\x6F\x6E\x41\x64\x64\x65\x64","\x73\x74\x72\x69\x6E\x67\x73","\x68\x74\x6D\x6C","\x66\x61\x73\x74","\x66\x61\x64\x65\x49\x6E","\x73\x6C\x6F\x77","\x66\x61\x64\x65\x4F\x75\x74","\x74\x69\x74\x6C\x65","\x77\x69\x73\x68\x6C\x69\x73\x74\x54\x65\x78\x74\x41\x64\x64\x65\x64","\x61\x74\x74\x72","\x6C\x6F\x63\x61\x6C\x57\x69\x73\x68\x6C\x69\x73\x74","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x73\x65\x74\x49\x74\x65\x6D","\x6C\x65\x6E\x67\x74\x68","\x74\x65\x78\x74"];function updateWishlist(_0xfc06x2){var _0xfc06x3=$(_0xfc06x2)[_0xcd91[1]](_0xcd91[0]),_0xfc06x4=$(wishlistButtonClass+ _0xcd91[2]+ _0xfc06x3+ _0xcd91[3]);var _0xfc06x5=$[_0xcd91[4]](_0xfc06x3,wishlistObject)!==  -1?true:false;if(_0xfc06x5){window[_0xcd91[6]][_0xcd91[5]]= wishlistPageUrl}else {wishlistObject[_0xcd91[7]](_0xfc06x3);_0xfc06x4[_0xcd91[14]](_0xcd91[13])[_0xcd91[12]](_0xcd91[11])[_0xcd91[10]](theme[_0xcd91[9]][_0xcd91[8]]);_0xfc06x4[_0xcd91[17]](_0xcd91[15],theme[_0xcd91[9]][_0xcd91[16]])};localStorage[_0xcd91[20]](_0xcd91[18],JSON[_0xcd91[19]](wishlistObject));loadSmallWishList();$wishlistCount[_0xcd91[22]](wishlistObject[_0xcd91[21]])}
+// 				var _0xd3ea=["\x63\x6C\x69\x63\x6B","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x6F\x6E","\x68\x61\x6E\x64\x6C\x65","\x64\x61\x74\x61","\x5B\x64\x61\x74\x61\x2D\x68\x61\x6E\x64\x6C\x65\x3D\x22","\x22\x5D","\x77\x69\x73\x68\x6C\x69\x73\x74\x49\x63\x6F\x6E","\x73\x74\x72\x69\x6E\x67\x73","\x68\x74\x6D\x6C","\x74\x69\x74\x6C\x65","\x77\x69\x73\x68\x6C\x69\x73\x74\x54\x65\x78\x74","\x61\x74\x74\x72","\x69\x6E\x64\x65\x78\x4F\x66","\x73\x70\x6C\x69\x63\x65","\x6C\x6F\x63\x61\x6C\x57\x69\x73\x68\x6C\x69\x73\x74","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x73\x65\x74\x49\x74\x65\x6D","\x66\x61\x64\x65\x4F\x75\x74","\x2E\x6A\x73\x2D\x77\x69\x73\x68\x6C\x69\x73\x74\x2D\x69\x74\x65\x6D","\x63\x6C\x6F\x73\x65\x73\x74","\x6C\x65\x6E\x67\x74\x68","\x74\x65\x78\x74"];$(document)[_0xd3ea[2]](_0xd3ea[0],wishlistButtonClass,function(_0xdfa5x1){_0xdfa5x1[_0xd3ea[1]]();updateWishlist(this)});$(document)[_0xd3ea[2]](_0xd3ea[0],wishlistRemoveButtonClass,function(){var _0xdfa5x2=$(this)[_0xd3ea[4]](_0xd3ea[3]),_0xdfa5x3=$(wishlistButtonClass+ _0xd3ea[5]+ _0xdfa5x2+ _0xd3ea[6]);_0xdfa5x3[_0xd3ea[9]](theme[_0xd3ea[8]][_0xd3ea[7]]);_0xdfa5x3[_0xd3ea[12]](_0xd3ea[10],theme[_0xd3ea[8]][_0xd3ea[11]]);wishlistObject[_0xd3ea[14]](wishlistObject[_0xd3ea[13]](_0xdfa5x2),1);localStorage[_0xd3ea[17]](_0xd3ea[15],JSON[_0xd3ea[16]](wishlistObject));$(this)[_0xd3ea[20]](_0xd3ea[19])[_0xd3ea[18]]();$wishlistCount[_0xd3ea[22]](wishlistObject[_0xd3ea[21]]);if(wishlistObject[_0xd3ea[21]]=== 0){loadNoResult()}});loadWishlist();loadSmallWishList();return {load:loadWishlist}
+// 			})()
+// 			theme.strings = {
+// 				wishlistNoResult: "<p>Chưa có sản phẩm yêu thích! Hãy lựa chọn những sản phẩm ưa thích của mình nào.</p>",
+// 				wishlistIcon: "<img  alt='Thêm vào yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/423/358/themes/852010/assets/heart.png?1645678264903'/>",
+// 				wishlistIconAdded: "<img class='fash-added'  alt='Đến trang sản phẩm yêu thích' width='25' height='25' src='https://bizweb.dktcdn.net/100/451/884/themes/857425/assets/heartadd.png?1649958365417'/>",
+// 				wishlistText: "Thêm vào yêu thích",
+// 				wishlistTextAdded: "Đến trang sản phẩm yêu thích",
+// 				wishlistRemove: "Xóa"
+// 			};
+// 		}
+// 	});		
+// }

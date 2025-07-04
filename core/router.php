@@ -13,4 +13,4 @@ $action_name = get_action().'Action';
 
 call_function(array('construct', $action_name));
 
-
+?>

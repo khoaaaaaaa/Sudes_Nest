@@ -15,29 +15,73 @@ function get_product_cart_by_id($product_id){
     }
      
 }
-function add_cart($product_id,$qty){
-    global $qty;
-    $item=get_product_by_id($product_id);
-    #thêm thông tin sản phẩm vào giỏ hàng
-        // print_r($item);
-    // $qty=1;
-    if(isset($_SESSION['cart']['buy']) && array_key_exists($product_id,$_SESSION['cart']['buy'])){
-        $qty= $_SESSION['cart']['buy'][$product_id]['qty']+1;
+function buy_now($product_id,$qty){
+    $item = get_product_by_id($product_id);
+    if(isset($_SESSION['cart']['buy'][$product_id])){
+        $qty += $_SESSION['cart']['buy'][$product_id]['qty'];
     }
-    
-    $_SESSION['cart']['buy'][$product_id]=array(
-        'product_id'=>$item['product_id'],
-        'product_title'=>$item['title'],
-        'price'=>$item['price'],
-        'product_thumb'=>$item['img'],
-        'qty'=>$qty,
-        'sub_total'=>$item['price'] * $qty
+
+    $_SESSION['cart']['buy'][$product_id] = array(
+        'product_id'    => $item['product_id'],
+        'product_title' => $item['title'],
+        'price'         => $item['price'],
+        'product_thumb' => $item['img'],
+        'qty'           => $qty,
+        'sub_total'     => $item['price'] * $qty
     );
     update_info_cart();
-    show_array($_SESSION['cart']);
-    show_array($item);
-    echo "id".$product_id;
 }
+
+// function add_cart($product_id,$qty){
+//     global $qty;
+//     $item=get_product_by_id($product_id);
+//     #thêm thông tin sản phẩm vào giỏ hàng
+//         // print_r($item);
+//     // $qty=1;
+//     if(isset($_SESSION['cart']['buy']) && array_key_exists($product_id,$_SESSION['cart']['buy'])){
+//         $qty= $_SESSION['cart']['buy'][$product_id]['qty']+1;
+//     }
+    
+//     $_SESSION['cart']['buy'][$product_id]=array(
+//         'product_id'=>$item['product_id'],
+//         'product_title'=>$item['title'],
+//         'cap1'=>$item['cap1'],
+//         'cap2'=>$item['cap2'],
+//         'cap3'=>$item['cap3'],
+//         'cap4'=>$item['cap4'],
+//         'product_title'=>$item['title'],
+//         'product_title'=>$item['title'],
+//         'product_title'=>$item['title'],
+//         'price'=>$item['price'],
+//         'product_thumb'=>$item['img'],
+//         'qty'=>$qty,
+//         'sub_total'=>$item['price'] * $qty,
+//     );
+//     update_info_cart();
+// }
+
+function add_cart($product_id, $qty){
+    $item = get_product_by_id($product_id);
+
+    // Nếu đã có sản phẩm trong giỏ, cộng dồn số lượng
+    if (isset($_SESSION['cart']['buy'][$product_id])) {
+        $qty += $_SESSION['cart']['buy'][$product_id]['qty'];
+    }
+
+    $_SESSION['cart']['buy'][$product_id] = array(
+        'product_id' => $item['product_id'],
+        'product_title' => $item['title'],
+        'cap1' => $item['cap1'],
+        'cap2' => $item['cap2'],
+        'cap3' => $item['cap3'],
+        'cap4' => $item['cap4'],
+        'price' => $item['price'],
+        'product_thumb' => $item['img'],
+        'qty' => $qty,
+        'sub_total' => $item['price'] * $qty,
+    );
+}
+
 
 function update_info_cart(){
     $num_order=0;
@@ -130,7 +174,7 @@ function get_id_khachhang($email,$sdt){
     }
 }
 function get_province_by_id($id){
-    $item=db_fetch_row("SELECT * FROM `province` WHERE `province_id`='{$id}'");
+    $item=db_fetch_row("SELECT * FROM `tinhthanh` WHERE `id`='{$id}'");
     if(!empty($item)){
         return $item;
     }
@@ -139,7 +183,7 @@ function get_province_by_id($id){
     }
 }
 function get_district_by_id($id){
-    $item=db_fetch_row("SELECT * FROM `district` WHERE `district_id`='{$id}'");
+    $item=db_fetch_row("SELECT * FROM `tinhthanh` WHERE `id`='{$id}'");
     if(!empty($item)){
         return $item;
     }
@@ -148,7 +192,7 @@ function get_district_by_id($id){
     }
 }
 function get_wards_by_id($id){
-    $item=db_fetch_row("SELECT * FROM `wards` WHERE `wards_id`='{$id}'");
+    $item=db_fetch_row("SELECT * FROM `tinhthanh` WHERE `id`='{$id}'");
     if(!empty($item)){
         return $item;
     }
@@ -216,5 +260,67 @@ function get_sp_by_id_ctddh($id_product){
     else{
         echo "không tồn tại";
     }
+}
+
+function get_list_product_like(){
+    $result = db_fetch_array("SELECT * FROM `tbl_product`  WHERE `trangthai`='Công khai' AND `thungrac`='0' ORDER BY RAND() LIMIT 8");
+    return $result;
+}
+
+function get_all_tinh() {
+    $result = db_fetch_array("SELECT id, ten FROM `tinhthanh` WHERE kieu IN (1,2,3) AND anhien = 2 ORDER BY ten ASC");
+    return $result;
+}
+
+
+function get_quan_by_tinh($quan_id) {
+    return db_fetch_array("
+        SELECT id, ten 
+        FROM `tinhthanh` 
+        WHERE idcha = '{$quan_id}' AND kieu IN (4, 5, 6)
+        ORDER BY 
+            CASE 
+                WHEN ten REGEXP '^[0-9]+' THEN CAST(SUBSTRING_INDEX(ten, ' ', 1) AS UNSIGNED)
+                ELSE 9999
+            END ASC,
+            ten ASC
+    ");
+}
+
+
+function get_phuong_by_quan($phuong_id) {
+    return db_fetch_array("
+        SELECT id, ten 
+        FROM `tinhthanh` 
+        WHERE idcha = '{$phuong_id}' AND kieu IN (7, 8) 
+        ORDER BY 
+            CASE 
+                WHEN ten REGEXP '^[0-9]+' THEN CAST(SUBSTRING_INDEX(ten, ' ', 1) AS UNSIGNED)
+                ELSE 9999
+            END ASC,
+            ten ASC
+    ");
+}
+
+function get_shipping_fee_by_tinh($tinh_id) {
+    // Lấy giá vận chuyển từ tỉnh
+    $row = db_fetch_row("SELECT gia FROM `tinhthanh` WHERE id = '{$tinh_id}'");
+    return $row ? (int)$row['gia'] : 0; // Trả về giá nếu có, nếu không trả về 0
+}
+
+function get_shipping_fee_by_quan($quan_id) {
+    // Lấy giá vận chuyển từ quận
+    $row = db_fetch_row("SELECT gia FROM `tinhthanh` WHERE id = '{$quan_id}'");
+    return $row ? (int)$row['gia'] : 0; // Trả về giá nếu có, nếu không trả về 0
+}
+
+function get_voucher_by_ten($ten_voucher){
+    $result = db_fetch_row("SELECT * FROM `tbl_voucher` WHERE ten_voucher = '{$ten_voucher}'");
+    return $result;
+} 
+
+function get_list_voucher(){
+    $result = db_fetch_array("SELECT * FROM `tbl_voucher`  WHERE `anhien`='1'");
+    return $result;
 }
 ?>

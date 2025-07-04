@@ -26,6 +26,10 @@ function get_list_product(){
     $result = db_fetch_array("SELECT * FROM `tbl_product`  WHERE `trangthai`='Công khai' AND `thungrac`='0' LIMIT 8");
     return $result;
 }
+function get_list_voucher(){
+    $result = db_fetch_array("SELECT * FROM `tbl_voucher`  WHERE `anhien`='1'");
+    return $result;
+}
 function get_product_by_id($product_id){
     $result=db_fetch_row("SELECT * FROM `tbl_product` WHERE `product_id`='{$product_id}'");
     if(!empty($result)){
@@ -59,11 +63,11 @@ function get_list_banner_tren(){
     return $result;
 }
 function get_list_post(){
-    $result = db_fetch_array("SELECT * FROM `tbl_post` WHERE `trangthai` = 'Công khai'");
+    $result = db_fetch_array("SELECT * FROM `tbl_post` WHERE `trangthai` = 'Công khai' LIMIT 7");
     return $result;
 }
 function get_post_by_id($post_id){
-    $result=db_fetch_row("SELECT * FROM `tbl_post` WHERE `post_id`='{$post_id}'");
+    $result=db_fetch_row("SELECT * FROM `tbl_post` WHERE `post_id`='{$post_id}' LIMIT 7");
     if(!empty($result)){
        
         return $result;
@@ -94,4 +98,8 @@ function get_category_by_id($danhmuc_id){
     else{
         echo "không tồn tại";
     } 
+}
+
+function get_list_contact() {
+    return db_fetch_array("SELECT * FROM `tbl_lienhe` WHERE `kieu` = '2'");
 }

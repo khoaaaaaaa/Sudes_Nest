@@ -168,7 +168,7 @@ get_header();
 
                 <div class="form-group">
                     <label for="intro">Mô tả sản phẩm</label>
-                    <textarea name="description" class="form-control" id="intro" cols="30" rows="5" value="<?php echo set_value('description')?>" id="desc"><?php echo $edit_product['description']?></textarea>
+                    <textarea name="description" id="desc" class="textarea" id="intro" cols="30" rows="5" value="<?php echo set_value('description')?>" class="ckeditor"><?php echo $edit_product['description']?></textarea>
                 </div>
 
                 <div class="form-group">
@@ -195,13 +195,13 @@ get_header();
                 <div class="form-group">
                     <label for="">Trạng thái</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="trangthai" id="exampleRadios1" value="Chờ duyệt" checked>
+                        <input class="form-check-input" type="radio" name="trangthai" id="exampleRadios1" value="Chờ duyệt" <?php if($edit_product['trangthai']=='Công khai'){echo 'checked';}?> >
                         <label class="form-check-label" for="exampleRadios1">
                             Chờ duyệt
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="trangthai" id="exampleRadios2" value="Công khai">
+                        <input class="form-check-input" type="radio" name="trangthai" id="exampleRadios2" value="Công khai"  <?php if($edit_product['trangthai']=='Công khai'){echo 'checked';}?>>
                         <label class="form-check-label" for="exampleRadios2">
                             Công khai
                         </label>
@@ -210,7 +210,7 @@ get_header();
                
                 <div class="form-group">
                     <div style="display: flex;">
-                        <input style="margin-bottom: 9px;" type="checkbox" name='noibat' value="1" id="rules">
+                        <input style="margin-bottom: 9px;" type="checkbox" name='noibat' value="1" id="rules" <?php if($edit_product['noibat']=='1'){echo 'checked';}?>>
                         <label style="margin-left: 10px;"> Sản Phẩm nổi bật</label><br>
                     </div>
                 </div>

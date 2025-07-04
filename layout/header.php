@@ -7,10 +7,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/solid.min.css">
+    <script src="https://cdn.tiny.cloud/1/x3qgdtb5ciacelhye5u7rzmlra9rscq605jima6m82o8jm37/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
+    
+    <script src="public/js/app.js" type="text/javascript"></script>
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="public/css/fonts.css">
     
     <script src="public/js/datepicker.js"></script>
+    <script src="public/js/main_yen.js"></script>
     <title>Trang chủ</title>
 </head>
 <body>
@@ -57,7 +65,7 @@
                 <div class="box-header">
                     <div class="rows">
                         <div class="col_3 header-logo">
-                            <a href="index.html" class="logo-wrapper">
+                            <a href="" class="logo-wrapper">
                                 <img src="public/img/logo.webp" alt="" class="lazyload loaded">
                             </a>
                         </div>
@@ -135,7 +143,7 @@
                                 </a>
                             </div>
                             <div class="sudes-header-iwish sm-hidden">
-                                <a href="" title="Danh sách yêu thích">
+                                <a href="danh-sach-yeu-thich.htm" title="Danh sách yêu thích">
                                     <span class="box-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
@@ -159,26 +167,40 @@
                                 </a>
                                 <ul>
                                     
-                                    <li class="li-account"><a rel="nofollow" href="dang-nhap.html" title="Đăng nhập">
+                                    <li class="li-account">
+                                        <?php if(is_customer_login()) { ?>
+                                            <?php $user_item=get_user_by_email(customer_login()); $slug = create_slug($user_item['fullname']);?>
+                                            <a href="<?php echo $slug."-info".$user_item['user_id'].".htm"?>"><i class="fa-regular fa-user" style= "text-align: start;width: 18px;height: 18px;margin-right: 5px;display: flex; align-items: center;"></i> <?php echo $user_item['fullname'];?></a>
+                                        <?php 
+                                            }
+                                            else {
+                                        ?>                                       
+                                        <a rel="nofollow" href="dang-nhap.htm" title="Đăng nhập">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"></path>
                                             <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
                                         </svg>
                                         Đăng nhập</a>
+                                        <?php }?>
                                     </li>
                                     <li class="li-account">
-                                        <a rel="nofollow" href="dang-ky.html" title="Đăng ký">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
-                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"></path>
-                                        </svg>
-                                        Đăng ký</a>
+                                        <?php if(is_customer_login()) { ?>
+                                            <a href="?mod=users&action=logout"><i class="fa-regular fa-arrow-right-from-bracket" style= "text-align: start;width: 18px;height: 18px;margin-right: 5px;display: flex; align-items: center;"></i>Đăng xuất</a>
+                                        <?php } else {?>
+                                            <a rel="nofollow" href="dang-ky.htm" title="Đăng ký">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"></path>
+                                                </svg>
+                                            Đăng ký</a>
+                                        <?php }?>
+                                        
                                     </li>
                                     
                                 </ul>
                             </div>
                             <div class="sudes-header-cart header-action_cart">
-                                <a class="a-hea" href="gio-hang.html" aria-label="Giỏ hàng" title="Giỏ hàng">
+                                <a class="a-hea" href="gio-hang.htm" aria-label="Giỏ hàng" title="Giỏ hàng">
                                     <span class="box-icon">
                                         <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_253_2)">
@@ -191,12 +213,64 @@
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        <span class="count_item count_item_pr hidden-count">0</span>
+                                        <span id="cart-count" class="count_item count_item_pr hidden-count"><?php echo !empty($_SESSION['cart']['buy']) ? $_SESSION['cart']['info']['num_order'] : 0; ?></span>
                                     </span>
                                     <span class="item-title sm-hidden">Giỏ hàng</span>
                                 </a>
+                                
                                 <div class="top-cart-content">		
                                     <div class="CartHeaderContainer">
+                                        <?php if(!empty($_SESSION['cart']['buy'])){ ?> 
+                                        <form class="cart ajaxcart cartheader">
+                                            <div class="title_cart_hea" onclick="window.location.href='gio-hang.htm'">Giỏ hàng</div>
+                                                
+                                                <div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
+                                                    
+                                                        <?php foreach($_SESSION['cart']['buy'] as $item){
+                                                            $slug=create_slug($item['product_title']); ?>
+                                                        <div class="ajaxcart__row">
+                                                            <div class="ajaxcart__product cart_product" data-line="3 ">
+                                                                <a href="<?php echo $slug."sp".$item['product_id'].".htm"?>" class="ajaxcart__product-image cart_image" title="">
+                                                                    <img width="80" height="80" src="admin/public/images/<?php echo $item['product_thumb']?>" alt="">
+                                                                </a>
+                                                                <div class="grid__item cart_info">
+                                                                    <div class="ajaxcart__product-name-wrapper cart_name">
+                                                                        <a href="<?php echo $slug."sp".$item['product_id'].".htm"?>" class="ajaxcart__product-name h4 line-clamp line-clamp-2-new" title=""><?php echo $item['product_title'] ?></a>
+                                                                        <a title="Xóa" class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="?mod=cart&action=delete&id=<?php echo $item['product_id'] ?>" data-line="1"></a>
+                                                                    </div>
+                                                                    <div class="grid">
+                                                                        <div class="grid__item one-half cart_select cart_item_name">
+                                                                            <div class="ajaxcart__qty input-group-btn">
+                                                                                <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="<?php echo $item['product_id']; ?>" data-qty="<?php echo $item['qty']; ?>" data-line="1" aria-label="-"> - </button>
+                                                                                <input type="text" name="updates[]" class="num-order number-sidebar" maxlength="3" value="<?php echo $item['qty'] ?>" min="1" data-id="<?php echo $item['product_id'] ?>" data-line="1" aria-label="quantity" pattern="[0-9]*">
+                                                                                <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="<?php echo $item['product_id']; ?>" data-line="1" data-qty="<?php echo $item['qty']; ?>" aria-label="+"> + </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="grid__item one-half text-right cart_prices">
+                                                                            <span class="cart-price sub-total"><?php echo currency_format($item['sub_total']) ?></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php } ?>
+                                                    
+                                                </div>
+                                                
+                                                <div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
+                                                    <div class="ajaxcart__subtotal">
+                                                        <div class="cart__subtotal">
+                                                            <div class="cart__col-6">Tổng tiền:</div>
+                                                            <div class="text-right cart__totle"><span class="total-price"><?php echo currency_format(get_total_cart())  ?></span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cart__btn-proceed-checkout-dt ">
+                                                        <button onclick="window.location.href='gio-hang.htm'" type="button" name="btn-thanhtoan"  class="button btn btn-primary cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <?php } else{?>
                                         <div class="cart--empty-message">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 201.387 201.387" style="enable-background:new 0 0 201.387 201.387;" xml:space="preserve"> 
                                                 <g> <g> 
@@ -226,8 +300,12 @@
                                             </svg>
                                             <p>Giỏ hàng của bạn đang trống</p>
                                         </div>
+                                        <?php }?>
                                     </div>
                                 </div>
+                                
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -265,7 +343,7 @@
                                         $dem_cap3 = count($list_category_level3);
                                     ?>
                                     <li class="<?php if($dem_cap3 > 0) echo 'list-main-cate-child' ?> menu-item-count">
-                                        <a href="/to-yen" title="Tổ yến">
+                                        <a href="<?php echo $item2['tenmien']?>.htm" title="Tổ yến">
                                             <img class="lazyload loaded" src="public/img/index-cate-icon-1.webp">
                                             <?php echo $item2['ten_danhmuc']?>
                                         </a>
@@ -277,7 +355,7 @@
                                                 $slug=create_slug($item3['ten_danhmuc']);
                                             ?>
                                             <li class="sudes-main-cate-has-child clearfix">
-                                                <a href="/to-yen-tho" title="Tổ yến thô"><?php echo $item3['ten_danhmuc']?></a>
+                                                <a href="<?php echo $item3['tenmien']?>.htm" title="<?php echo $item3['ten_danhmuc']?>"><?php echo $item3['ten_danhmuc']?></a>
                                                 <i class="open_mnu down_icon"></i>
                                                 <ul class="menu-child menu-child-2 sub-menu clearfix">
                                                     <?php $list_category_level4= get_list_category_by_idcha($item3['danhmuc_id']); 
@@ -285,7 +363,7 @@
                                                         $slug=create_slug($item4['ten_danhmuc']);
                                                     ?>
                                                     <li>
-                                                        <a href="" title=""><?php echo $item4['ten_danhmuc']?></a>
+                                                        <a href="<?php echo $item4['tenmien']?>.htm" title=""><?php echo $item4['ten_danhmuc']?></a>
                                                     </li>
                                                     <?php }?>
                                                 </ul>
@@ -301,16 +379,16 @@
                             <div class="col-menu has-promo-btn">
                                 <ul id="nav" class="nav">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="?mod=home&action=index" title="Trang chủ">Trang chủ</a>
+                                        <a class="nav-link" href="" title="Trang chủ">Trang chủ</a>
                                     </li>
-                                    <?php $list_category= get_list_category();
+                                    <?php $list_category= get_list_category();  
                                     foreach($list_category as $item){
                                         $slug=create_slug($item['ten_danhmuc']);
                                         $list_category_level2= get_list_category_by_idcha($item['danhmuc_id']);
                                         $dem_cap2 = count($list_category_level2);
                                     ?>
                                     <li class="nav-item <?php if($dem_cap2 > 0) echo 'has-childs' ?>">
-                                        <a class="nav-link" href="?mod=home&action=load_menu&danhmuc_id=<?php echo $item['danhmuc_id'] ?>" title="">
+                                        <a class="nav-link" href="<?php echo  $item['tenmien']?>.htm" title="<?php echo $item['ten_danhmuc']; ?>">
                                             <?php echo $item['ten_danhmuc']?>
                                             <?php if($dem_cap2 > 0) echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path>
@@ -326,8 +404,9 @@
                                                 $dem_cap3 = count($list_category_level3);
                                             ?>
                                             <li class="nav-item-lv2 <?php if($dem_cap3 > 0) echo 'dropdown-submenu has-childs2' ?>">
-                                                <a class="nav-link" href="?mod=home&action=load_menu&danhmuc_id=<?php echo $item2['danhmuc_id'] ?>" title=""><?php echo $item2['ten_danhmuc']?>
-                                                <?php if($dem_cap3 > 0) echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                                <a class="nav-link" href="<?php echo $item2['tenmien']?>.htm" title="<?php echo $item2['ten_danhmuc']; ?>">
+                                                    <?php echo $item2['ten_danhmuc']?>
+                                                    <?php if($dem_cap3 > 0) echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path></svg>'
                                                 ?> 
                                                 </a>
@@ -338,7 +417,7 @@
                                                         $slug=create_slug($item3['ten_danhmuc']);
                                                     ?>
                                                     <li class="nav-item-lv3">
-                                                        <a class="nav-link" href="" title=""><?php echo $item3['ten_danhmuc']?></a>
+                                                        <a class="nav-link" href="<?php echo $item3['tenmien']?>.htm" title="<?php echo $item3['ten_danhmuc']; ?>"><?php echo $item3['ten_danhmuc']?></a>
                                                     </li>
                                                     <?php }?>
                                                 </ul>
@@ -351,7 +430,7 @@
 
 
                                     <li class="nav-item ">
-                                        <a class="nav-link" href="lien-he.html" title="Liên hệ">Liên hệ</a>
+                                        <a class="nav-link" href="lien-he.htm" title="Liên hệ">Liên hệ</a>
                                     </li>
                                 </ul>
                             </div>

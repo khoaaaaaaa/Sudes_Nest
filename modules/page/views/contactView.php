@@ -70,22 +70,22 @@ get_header();
                                 Liên hệ với chúng tôi
                             </h4>
                             <div id="pagelogin">
-                                <form method="post" action="/postcontact" id="contact" accept-charset="UTF-8"><input name="FormType" type="hidden" value="contact"><input name="utf8" type="hidden" value="true"><input type="hidden" id="Token-cc83fb5aedcb4188bc41e41c30ae883a" name="Token" value="03AFcWeA6zS4QsHicQ97VVNc2WFpRMpELgOIom1GHOsOOr_7VnNf2KDJULW_FHrBNdbJw87UKmgFtvu8bRL9GStTIl9_5rdVXrKKYtYVr0D9Xwg8m10MVNCf2k5LF2pgXj3crRd3NuFx34ItzQAtTeERLfKZkuJ5zC9gnuP6UTF9942KAI5EUav2-b7fiHgsEECi37s7touuPq3R5hS7tZkXcV9AC4JI1AUu-IJhhfL69MCONGwjh5L8kFcteGvlPN1AI1T7NdR449GYHcsu8HwKpI0nLOELvGFPOlb6MN1kwqpve0989IYZ481eCVEOwakXHT33XF8NW6wQSejB_byMl8UoRT_rUiO9OEJOQL32sGJSxPWlInh3jDt4sLsd3SbsKhyneFIaXQvOZ44DThyVUZBvHZzCDRu7ymzRGBt_ibMfH7QqEbhWnZOhj3hZQl5bXOm3DC6lie1A75HuU7uMCtC2SaxcEkIxA8d_GEpzgkrVZV42j8mFZx7r4nlV7K08-20_hkmg8LVQ4y1709NqCP0RYBGkeics8X2-hXYU7-Oq4NYUnxUPnD3A9FcwAdGQMhm-MBvRdgUw_k-DgCGr9e9N6TSu4gm7vr6B81sMd9Ri6jqKpLnAl4w8GZVTjd_UuXL9q5bAQc8_kFnuFPQ2MlU_V9JMa_fz-pQkgkikr-TRGTmP-e_I-Osbjn09gyaKWcqnQDUCtWa-Cc0tmKUkf0jaf0UAk6zjldkQShtfTnkkG5ifpvgwf8SmX8jCVaIKYuklD7qlveuRyzXqVWiz1tjshbf21hPBRIfBmosH8st8jl3em3B0ICXyZsPCHPtij81gGTqieGsQW6vlu6jOuEsmKs2ajbrQ"><script src="https://www.google.com/recaptcha/api.js?render=6Ldtu4IUAAAAAMQzG1gCw3wFlx_GytlZyLrXcsuK"></script><script>grecaptcha.ready(function() {grecaptcha.execute("6Ldtu4IUAAAAAMQzG1gCw3wFlx_GytlZyLrXcsuK", {action: "contact"}).then(function(token) {document.getElementById("Token-cc83fb5aedcb4188bc41e41c30ae883a").value = token});});</script>
+                                <form method="POST" action="?mod=page&action=save_contact" id="contact" accept-charset="UTF-8">
                                     <div class="group_contact">
                                         <div class="rows">
                                             <div class="col_6">
-                                                <input placeholder="Họ và tên" type="text" class="form-control  form-control-lg" required="" value="" name="contact[Name]">
+                                                <input placeholder="Họ và tên" type="text" class="form-control  form-control-lg" required="" value="<?php echo set_value('fullname')?>" name="fullname">
                                             </div>
                                             <div class="col_6">
-                                                <input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" id="email1" class="form-control form-control-lg" value="" name="contact[email]">
+                                                <input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" id="email1" class="form-control form-control-lg" value="<?php echo set_value('email')?>" name="email">
                                             </div>
                                             <div class="col_12">
-                                                <input type="number" placeholder="Điện thoại" name="contact[phone]" class="form-control form-control-lg" required="">
+                                                <input type="number" placeholder="Điện thoại" name="phone_number" class="form-control form-control-lg" value="<?php echo set_value('phone_number')?>" required="">
                                             </div>
                                             <div class="col_12">
-                                                <textarea placeholder="Nội dung" name="contact[body]" id="comment" class="form-control content-area form-control-lg" rows="5" required=""></textarea>
-                                                <button type="submit" class="btn btn-primary">Gửi tin nhắn <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path> </svg></button>
+                                                <textarea placeholder="Nội dung" name="content" value="<?php echo set_value('content')?>" id="comment" class="form-control content-area form-control-lg" rows="5" required=""></textarea>
                                             </div>
+                                            <button type="submit" name="btn-add" class="btn btn-primary">Gửi tin nhắn</button>
                                         </div>
                                     </div>
                                 </form>

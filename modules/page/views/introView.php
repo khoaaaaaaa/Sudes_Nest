@@ -16,7 +16,7 @@ get_header();
                         &nbsp;
                     </span>
                 </li>
-                <li><strong><span>Giới thiệu</span></strong></li>
+                <li><strong><span><?php echo $danhmuc_detail['ten_danhmuc'] ?></span></strong></li>
             </ul>
         </div>
     </div>
@@ -27,16 +27,10 @@ get_header();
                 <div class="rows">
                     <div class="col_12">
                         <div class="page-title category-title">
-                            <h1 class="title-head"><a href="/gioi-thieu" title="Giới thiệu">Giới thiệu</a></h1>
+                            <h1 class="title-head"><a href="/gioi-thieu" title="Giới thiệu"><?php echo $danhmuc_detail['ten_danhmuc'] ?></a></h1>
                         </div>
                         <div class="content-page rte">
-                            <p>Như quý vị đã biết: "Tài sản lớn nhất của đời người là sức khỏe và trí tuệ", có sức khỏe và trí tuệ thì sẽ có tất cả. Sản phẩm yến sào là thực phẩm bổ dưỡng mang lại cho Quý vị sức khỏe, trí tuệ và sự trẻ trung. Yến sào được thị trường đón nhận với phương châm: "Chất lượng uy tín là thương hiệu".</p>
-                            <p>
-                                <br>
-                                Sản phẩm yến sào của Yến sào <b>Sudes Nest</b> được khai thác và yến nuôi tổ với chất lượng tuyệt đối...
-                            </p>
-                            <p><strong>Sudes Nest</strong> đến nay đã chiếm trọn niềm tin của khách hàng bởi chất lượng - tinh tế - hợp khẩu vị trong từng dòng sản phẩm về Yến sào.</p>
-                            <p><strong>Sudes Nest</strong> luôn mang đến cho quý khách hàng những sản phẩm chất lượng nhất - tốt nhất - tinh hoa nhất với đội ngũ chuyên gia nghiên cứu dinh dưỡng hàng đầu Việt Nam và luôn đầu tư dây chuyền sản xuất công nghệ cao, hiện đại, quy mô sản xuất lớn.</p>
+                        <?php echo $danhmuc_detail['detail_danhmuc'] ?>
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ function list_post_catAction(){
     load_view('list_post_cat',$data);
 }
 function add_postAction(){
-    global $img,$post_title,$post_detail,$error,$post_description,$trangthai,$post_cat_id,$img_name;
+    global $img,$post_title,$post_detail,$error,$post_description,$trangthai,$post_cat_id,$img_name, $cap1, $ten_cap1, $cap2, $ten_cap2, $cap3, $ten_cap3, $cap4, $ten_cap4, $noibat;
     if(isset($_POST['btn-add'])){
         $error=array();
         if(empty($_POST['post_title'])){
@@ -46,6 +46,12 @@ function add_postAction(){
         }
         else{
             $post_title=$_POST['post_title'];       
+        }
+        if(empty($_POST['mota'])){
+            $error['mota']="Không được để trống Mô tả bài viết";
+        }
+        else{
+            $mota=$_POST['mota'];       
         }
         if(empty($_POST['post_detail'])){
             $error['post_detail']="Không được để trống Mô tả ngắn";
@@ -61,16 +67,52 @@ function add_postAction(){
         }
         if(empty($_POST['trangthai'])){
             $error['trangthai']="Không được để trống trạng thái";
-           }
+        }
            else{
             $trangthai=$_POST['trangthai'];
-           }
-        if(empty($_POST['post_cat_id'])){
-            $error['post_cat_id']="Không được để trống Danh mục cha";
-           }
-           else{
-            $post_cat_id=$_POST['post_cat_id'];
-           }
+        }
+
+        if(empty($_POST['cap1'])){
+        $cap1=0;
+        }
+        else{
+            $cap1=$_POST['cap1'];
+        }
+        if(empty(!$cap1)){
+            $ten_cap1=get_ten_cat_by_id($cap1)['ten_danhmuc'];
+        }
+
+        if(empty($_POST['cap2'])){
+            $cap2=0;
+        }
+        else{
+            $cap2=$_POST['cap2'];
+        }
+        if(!empty($cap2)){
+            $ten_cap2=get_ten_cat_by_id($cap2)['ten_danhmuc'];
+        }
+
+        if(empty($_POST['cap3'])){
+            $cap3=0;
+        }
+        else{
+            $cap3=$_POST['cap3'];
+        }
+        if(!empty($cap3)){
+            $ten_cap3= get_ten_cat_by_id($cap3)['ten_danhmuc'];
+        }
+
+        if(empty($_POST['cap4'])){
+            $cap4=0;
+        }
+        else{
+            $cap4=$_POST['cap4'];
+        }
+        if(!empty($cap4)){
+            $ten_cap4= get_ten_cat_by_id($cap4)['ten_danhmuc'];
+        }
+        if(isset($_POST['noibat']) ? 1 : 0);
+
         if(isset($_FILES['file'])){
 
             $upload_dir='public/images/';
@@ -132,6 +174,7 @@ function add_postAction(){
             
             $data=array(
                 'post_title'=>$post_title,
+                'mota'=>$mota,
                 'post_description'=>$post_description,
                 'post_detail'=>$post_detail,
                 'user_id'=>$user_id,
@@ -139,8 +182,15 @@ function add_postAction(){
                 'time'=>$time,
                 'trangthai'=>$trangthai,
                 'img'=>$url_img_new,
-                
-
+                'cap1'=>$cap1,
+                'cap2'=>$cap2,
+                'cap3'=>$cap3,
+                'cap4'=>$cap4,
+                'ten_cap1'=>$ten_cap1,
+                'ten_cap2'=>$ten_cap2,
+                'ten_cap3'=>$ten_cap3,
+                'ten_cap4'=>$ten_cap4,
+                'noibat'=>$noibat
             );
             
             db_insert('tbl_post',$data);
@@ -155,7 +205,7 @@ function add_postAction(){
     load_view('add_post',$data);
 }
 function edit_postAction(){
-    global $img,$post_title,$post_detail,$error,$post_description,$trangthai,$post_cat_id,$post_id,$img_name;
+    global $img,$post_title,$post_detail,$error,$mota,$post_description,$trangthai,$post_cat_id,$post_id,$img_name, $cap1, $ten_cap1, $cap2, $ten_cap2, $cap3, $ten_cap3, $cap4, $ten_cap4, $noibat;
     $post_id=(int)$_GET['post_id'];
     $post=get_post_by_id($post_id);
 
@@ -166,6 +216,12 @@ function edit_postAction(){
         }
         else{
             $post_title=$_POST['post_title'];       
+        }
+        if(empty($_POST['mota'])){
+            $error['mota']="Không được để trống Mô tả bài viết";
+        }
+        else{
+            $mota=$_POST['mota'];       
         }
         if(empty($_POST['post_detail'])){
             $error['post_detail']="Không được để trống Mô tả ngắn";
@@ -181,16 +237,58 @@ function edit_postAction(){
         }
         if(empty($_POST['trangthai'])){
             $error['trangthai']="Không được để trống trạng thái";
-           }
-           else{
-            $trangthai=$_POST['trangthai'];
-           }
-        if(empty($_POST['post_cat_id'])){
-            $error['post_cat_id']="Không được để trống Danh mục cha";
-           }
-           else{
-            $post_cat_id=$_POST['post_cat_id'];
-           }
+        }
+        else{
+        $trangthai=$_POST['trangthai'];
+        }
+
+        if(empty($_POST['cap1'])){
+            $cap1=0;
+        }
+        else{
+            $cap1=$_POST['cap1'];
+        }
+        if(empty(!$cap1)){
+            $ten_cap1=get_ten_cat_by_id($cap1)['ten_danhmuc'];
+        }
+
+        if(empty($_POST['cap2'])){
+            $cap2=0;
+        }
+        else{
+            $cap2=$_POST['cap2'];
+        }
+        if(!empty($cap2)){
+            $ten_cap2=get_ten_cat_by_id($cap2)['ten_danhmuc'];
+        }
+
+        if(empty($_POST['cap3'])){
+            $cap3=0;
+        }
+        else{
+            $cap3=$_POST['cap3'];
+        }
+        if(!empty($cap3)){
+            $ten_cap3= get_ten_cat_by_id($cap3)['ten_danhmuc'];
+        }
+
+        if(empty($_POST['cap4'])){
+            $cap4=0;
+        }
+        else{
+            $cap4=$_POST['cap4'];
+        }
+        if(!empty($cap4)){
+            $ten_cap4= get_ten_cat_by_id($cap4)['ten_danhmuc'];
+        }
+
+        if(empty($_POST['noibat'])){
+            $noibat=0;
+        }
+        else{
+            $noibat=$_POST['noibat'];  
+        }
+
         if(isset($_FILES['file'])){
            if(empty($_FILES['file']['name'])){
             $img_name=get_file_by_id('tbl_post','post_id',$post_id);
@@ -250,7 +348,7 @@ function edit_postAction(){
                 $type=pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
                 $url_img_new=$name_img.'.'.$type;
                 rename("public/images/{$img_name}","public/images/{$url_img_new}");
-
+                
                 $user=get_user_id_by_username(user_login());
                 $user_id=$user['user_id'];
                 $time=date('d/m/Y - H:i:s');
@@ -258,14 +356,22 @@ function edit_postAction(){
             
                 $data=array(
                     'post_title'=>$post_title,
+                    'mota'=>$mota,
                     'post_description'=>$post_description,
                     'post_detail'=>$post_detail,
                     'user_id'=>$user_id,
-                    'post_cat_id'=>$post_cat_id,
                     'time'=>$time,
                     'trangthai'=>$trangthai,
-                    'img'=>$url_img_new
-
+                    'img'=>$url_img_new,
+                    'cap1'=>$cap1,
+                    'cap2'=>$cap2,
+                    'cap3'=>$cap3,
+                    'cap4'=>$cap4,
+                    'ten_cap1'=>$ten_cap1,
+                    'ten_cap2'=>$ten_cap2,
+                    'ten_cap3'=>$ten_cap3,
+                    'ten_cap4'=>$ten_cap4,
+                    'noibat'=>$noibat,
                 );
                 $file_name=explode(".",$post['img']);
                 unlink("public/images/{$post['img']}");
@@ -410,4 +516,17 @@ function delete_postAction(){
     $list_post_cat=get_list_post_cat();
     $data['list_post_cat']=$list_post_cat;
     load_view('delete_post',$data);
+}
+
+
+function ajax_get_danhmucAction() {
+    $danhmuc_id = $_POST['id'];
+    $cap = $_POST['cap'];
+    $danhmuc_con = get_cap_by_parent_id($danhmuc_id);
+    
+    echo '<option value="">--Chọn Cấp '.$cap.' --</option>';
+    foreach ($danhmuc_con as $option) {
+        $selected = (set_value('cap'.$cap) == $option['danhmuc_id']) ? 'selected' : '';
+        echo "<option value='{$option['danhmuc_id']}' $selected>{$option['ten_danhmuc']}</option>";
+    }
 }

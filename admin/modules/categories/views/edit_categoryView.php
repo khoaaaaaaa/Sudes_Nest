@@ -52,6 +52,12 @@ get_header();
                         </div>
 
                         <div class="form-group">
+                            <label for="name">Tên miền</label>
+                            <input type="text" name="tenmien" class="form-control" value="<?php echo $edit_category['tenmien']?>" id="product-name">
+                            <?php echo form_error('tenmien')?>
+                        </div>
+
+                        <div class="form-group">
                             <label for="">Nổi bật</label>
                             <select name='noibat' class='form-control'>
                                 <option value="0">--Chọn--</option>
@@ -64,7 +70,7 @@ get_header();
 
                 <div class="form-group">
                     <label for="intro">Chi tiết danh mục</label> 
-                    <textarea name="danhmuc_detail" id="desc" class="textarea" id="intro" cols="30" rows="5" value="<?php echo set_value('danhmuc_detail')?>" class="ckeditor"><?php echo set_value('danhmuc_detail')?></textarea>
+                    <textarea name="detail_danhmuc" id="desc" class="textarea" id="intro" cols="30" rows="5" value="<?php echo set_value('detail_danhmuc')?>" class="ckeditor"><?php echo $edit_category['detail_danhmuc']?></textarea>
                 </div>
 
                 <div class="form-group">

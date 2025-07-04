@@ -15,7 +15,7 @@
 
     // Thêm mới danh mục
     function add_categoryAction() {
-        global $error, $cap, $kieu, $ten_danhmuc, $trangthai, $danhmuc_id_cha, $noibat;
+        global $error, $cap, $kieu, $ten_danhmuc, $trangthai, $danhmuc_id_cha, $noibat, $detail_danhmuc,$tenmien;
 
         if (isset($_POST['btn-upload'])) {
             $error = array();
@@ -53,6 +53,12 @@
                 $danhmuc_id_cha = 0;
             }
 
+            if (empty($_POST['detail_danhmuc'])) {
+                $detail_danhmuc = '';
+            } else {
+                $detail_danhmuc = $_POST['detail_danhmuc'];
+            }
+
             if(empty($_POST['noibat'])){
                 $noibat = 1;
             }
@@ -69,8 +75,24 @@
                     'trangthai' => $trangthai,
                     'danhmuc_id_cha' => $danhmuc_id_cha,
                     'noibat' => $noibat,
+                    'detail_danhmuc' => $detail_danhmuc
                 ];
-                db_insert('tbl_danhmuc',$data);
+                $id_dm = db_insert('tbl_danhmuc', $data);
+                $tenmien = create_slug($_POST['ten_danhmuc']);
+                $is_tenmien = check_tenmien($tenmien, $id_dm);
+                if($is_tenmien == true)
+                {
+                    $is_tenmien = $tenmien."-dm-".$id_dm.".htm";
+                }
+                else
+                {
+                    $is_tenmien = $tenmien;
+                }
+                echo $is_tenmien;
+                $data = array(
+                    'tenmien' => $is_tenmien,
+                );
+                db_update('tbl_danhmuc', $data, "`danhmuc_id`='{$id_dm}'");
                 $_SESSION['result']="Thêm danh mục thành công !";
                 redirect("?mod=categories&action=list_category");                           
             }
@@ -83,8 +105,7 @@
     // Sửa danh mục
     function edit_categoryAction(){
         $danhmuc_id=(int)$_GET['danhmuc_id'];
-       
-        global $error, $cap, $kieu, $ten_danhmuc, $trangthai, $danhmuc_id_cha, $noibat;
+        global $error, $cap, $kieu, $ten_danhmuc, $trangthai, $danhmuc_id_cha, $noibat, $detail_danhmuc, $tenmien;
         $edit_category = get_category_by_id($danhmuc_id);
         if(isset($_POST['btn-edit'])){
             $error=array();
@@ -120,11 +141,28 @@
                 $danhmuc_id_cha = 0;
             }
 
+            if (empty($_POST['detail_danhmuc'])) {
+                $detail_danhmuc = '';
+            } else {
+                $detail_danhmuc = $_POST['detail_danhmuc'];
+            }
+
             if(empty($_POST['noibat'])){
                 $noibat = 1;
             }
             else{
                 $noibat=$_POST['noibat'];
+            }
+
+            $tenmien = create_slug($_POST['ten_danhmuc']);
+            $is_tenmien = check_tenmien_edit($tenmien);
+            if($is_tenmien == true)
+            {
+                $is_tenmien = $tenmien."-dm-".$danhmuc_id.".htm";
+            }
+            else
+            {
+                $is_tenmien = $tenmien;
             }
                    
             if(empty($error)){
@@ -135,6 +173,8 @@
                     'trangthai' => $trangthai,
                     'danhmuc_id_cha' => $danhmuc_id_cha,
                     'noibat' => $noibat,
+                    'detail_danhmuc' => $detail_danhmuc,
+                    'tenmien' => $is_tenmien,
                 );
                 db_update('tbl_danhmuc',$data,"`danhmuc_id`='{$danhmuc_id}'");
                 redirect("?mod=categories&action=list_category");           
@@ -273,5 +313,7 @@
             echo "<option value='{$option['danhmuc_id']}' $selected>{$mang_ten}</option>";
         }
     }
+    
+
     
 ?>

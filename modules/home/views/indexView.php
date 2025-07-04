@@ -336,19 +336,17 @@ get_header();
                     <span class="sub-title">
                         Yến sào Sudes Nest
                     </span>
-                    
                     <h2>
                         <a href="/san-pham-khuyen-mai" title="Khuyến mãi đặc biệt">
                             Khuyến mãi đặc biệt
                         </a>
                     </h2>
-
                     <div class="title-separator">
                         <div class="separator-center"></div>
                     </div>
-
                     <div class="count-down">
-        				<div class="timer-view" data-countdown="countdown" data-date="12-25-2024-09-15-45"></div>
+                        <div class="timer-view" data-countdown="countdown" data-date="2025-12-25-09-15-45"></div>
+
 			        </div>
                 </div>
 
@@ -360,21 +358,24 @@ get_header();
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="item_product_main">							
-                                        <form action="/cart/add" method="post" class="variants product-action item-product-main product-flash-sale duration-300" data-cart-form="" data-id="product-actions-34620973" enctype="multipart/form-data">
+                                        <form action="" method="" class="variants product-action item-product-main product-flash-sale duration-300" data-cart-form="" data-id="product-actions-34620973" enctype="multipart/form-data">
                                             <span class="flash-sale">-37%</span>
                                             
                                             <div class="product-thumbnail">
-                                                <a class="image_thumb scale_hover" href="chi-tiet-san-pham.html" title="Set quà 2010 – Maneli #1 bồi bổ sức khỏe, dưỡng nhan">
+                                                <a class="image_thumb scale_hover" href="<?php echo $slug . "sp" . $item['product_id'] . ".htm" ?>" title="Set quà 2010 – Maneli #1 bồi bổ sức khỏe, dưỡng nhan">
                                                     <img class="lazyload duration-300 loaded" src="admin/public/images/<?php echo $item['img']?>" data-src="public/img/<?php echo $item['img']?>" alt="Set quà 2010 – Maneli #1 bồi bổ sức khỏe, dưỡng nhan" data-was-processed="true">
                                                 </a>
                                             </div>
                                             <div class="product-info">
                                                 <div class="name-price">
                                                     <h3 class="product-name line-clamp-2-new">
-                                                        <a href="chi-tiet-san-pham.html" title="Set quà 2010 – Maneli #1 bồi bổ sức khỏe, dưỡng nhan"><?php echo $item['title']?></a>
+                                                        <a href="<?php echo $slug . "sp" . $item['product_id'] . ".htm" ?>" title="<?php echo $item['title']?>"><?php echo $item['title']?></a>
                                                     </h3>
                                                     <div class="product-price-cart">
-                                                        <span class="compare-price">799.000₫</span>
+                                                        <?php 
+                                                            if ($item['price_discount'] > 0) { ?>
+                                                                <span class="compare-price"><?php echo currency_format($item['price_discount']) ?></span>
+                                                        <?php } ?>
                                                         <span class="price"><?php echo currency_format($item['price']) ?></span>
                                                         <div class="productcount">
                                                             <div class="countitem visible">	
@@ -399,10 +400,9 @@ get_header();
                                                     </div>
                                                 </div>
                                                 <div class="product-button">
-                                                    <input type="hidden" name="variantId" value="110202248">
-                                                    <button class="btn-cart btn-views add_to_cart btn btn-primary " title="Thêm vào giỏ hàng">
+                                                    <button class="btn-cart btn-views add_to_cart btn btn-primary add_cart" var_id="<?php echo $item['product_id']?>" title="Thêm vào giỏ hàng">
                                                         <span>Thêm vào giỏ</span>
-                                                        <svg enable-background="new 0 0 32 32" height="512" viewBox="0 0 32 32" width="512" xmlns="http://www.w3.org/2000/svg"><g><g><path d="m23.8 30h-15.6c-3.3 0-6-2.7-6-6v-.2l.6-16c.1-3.3 2.8-5.8 6-5.8h14.4c3.2 0 5.9 2.5 6 5.8l.6 16c.1 1.6-.5 3.1-1.6 4.3s-2.6 1.9-4.2 1.9c0 0-.1 0-.2 0zm-15-26c-2.2 0-3.9 1.7-4 3.8l-.6 16.2c0 2.2 1.8 4 4 4h15.8c1.1 0 2.1-.5 2.8-1.3s1.1-1.8 1.1-2.9l-.6-16c-.1-2.2-1.8-3.8-4-3.8z"></path></g><g><path d="m16 14c-3.9 0-7-3.1-7-7 0-.6.4-1 1-1s1 .4 1 1c0 2.8 2.2 5 5 5s5-2.2 5-5c0-.6.4-1 1-1s1 .4 1 1c0 3.9-3.1 7-7 7z"></path></g></g></svg>
+                                                        <svg enable-background="new 0 0 32 32" height="512" viewBox="0 0 32 32" width="512" xmlns="http://www.w3.org/2000/svg"><g><g><path d="m23.8 30h-15.6c-3.3 0-6-2.7-6-6v-.2l.6-16c.1-3.3 2.8-5.8 6-5.8h14.4c3.2 0 5.9 2.5 6 5.8l.6 16c.1 1.6-.5 3.1-1.6 4.3s-2.6 1.9-4.2 1.9c0 0-.1 0-.2 0zm-15-26c-2.2 0-3.9 1.7-4 3.8l-.6 16.2c0 2.2 1.8 4 4 4h15.8c1.1 0 2.1-.5 2.8-1.3s1.1-1.8 1.1-2.9l-.6-16c-.1-2.2-1.8-3.8-4-3.8z"/></g><g><path d="m16 14c-3.9 0-7-3.1-7-7 0-.6.4-1 1-1s1 .4 1 1c0 2.8 2.2 5 5 5s5-2.2 5-5c0-.6.4-1 1-1s1 .4 1 1c0 3.9-3.1 7-7 7z"/></g></g></svg>
                                                     </button>
                                                     <a href="javascript:void(0)" class="setWishlist btn-views btn-circle" data-wish="set-qua-2010-maneli-1-boi-bo-suc-khoe-duong-nhan" tabindex="0" title="Thêm vào yêu thích">
                                                         <img width="25" height="25" src="//bizweb.dktcdn.net/100/506/650/themes/944598/assets/heart.png?1717814629369" alt="Thêm vào yêu thích"> 
@@ -450,127 +450,6 @@ get_header();
                 </div>
             </div>
 
-            <!-- <script>
-                $(document).ready(function ($) {
-                    var swiper_sale = null;
-                        swiper_sale = new Swiper('.swiper_sale', {
-                            slidesPerView: 4,
-                            spaceBetween: 20,
-                            slidesPerGroup: 1,
-                            navigation: {
-                                nextEl: '.swiper_sale .swiper-button-next',
-                                prevEl: '.swiper_sale .swiper-button-prev',
-                            },
-                            breakpoints: {
-                                768: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20
-                                },
-                                992: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20
-                                },
-                                1024: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20
-                                }
-                            }
-                        });
-                    
-                    function destroySwiperSale() {
-                        if (swiper_sale) {
-                            swiper_sale.destroy(true, true);
-                            swiper_sale = null;
-                        }
-                    }
-                    function toggleSwiperSale() {
-                        if ($(window).width() <= 767 && swiper_sale) {
-                            destroySwiperSale();
-                        } else if ($(window).width() > 767 && !swiper_sale) {
-                            initSwiperSale();
-                        }
-                    }
-                    toggleSwiperSale();
-                    $(window).resize(toggleSwiperSale);	
-                });
-
-                (function($){
-                    "user strict";
-                    $.fn.Dqdt_CountDown = function( options ) {
-                        return this.each(function() {
-                            new  $.Dqdt_CountDown( this, options );
-                        });
-                    }
-                    $.Dqdt_CountDown = function( obj, options ){
-                        this.options = $.extend({
-                            autoStart			: true,
-                            LeadingZero:true,
-                            DisplayFormat:"<div><span>%%D%%</span> Days</div><div><span>%%H%%</span> Hours</div><div><span>%%M%%</span> Mins</div><div><span>%%S%%</span> Secs</div>",
-                            FinishMessage:"Háº¿t háº¡n",
-                            CountActive:true,
-                            TargetDate:null
-                        }, options || {} );
-                        if( this.options.TargetDate == null || this.options.TargetDate == '' ){
-                            return ;
-                        }
-                        this.timer  = null;
-                        this.element = obj;
-                        this.CountStepper = -1;
-                        this.CountStepper = Math.ceil(this.CountStepper);
-                        this.SetTimeOutPeriod = (Math.abs(this.CountStepper)-1)*1000 + 990;
-                        var dthen = new Date(this.options.TargetDate);
-                        var dnow = new Date();
-                        if( this.CountStepper > 0 ) {
-                            ddiff = new Date(dnow-dthen);
-                        }
-                        else {
-                            ddiff = new Date(dthen-dnow);
-                        }
-                        gsecs = Math.floor(ddiff.valueOf()/1000);
-                        this.CountBack(gsecs, this);
-                    };
-                    $.Dqdt_CountDown.fn =  $.Dqdt_CountDown.prototype;
-                    $.Dqdt_CountDown.fn.extend =  $.Dqdt_CountDown.extend = $.extend;
-                    $.Dqdt_CountDown.fn.extend({
-                        calculateDate:function( secs, num1, num2 ){
-                            var s = ((Math.floor(secs/num1))%num2).toString();
-                            if ( this.options.LeadingZero && s.length < 2) {
-                                s = "0" + s;
-                            }
-                            return "<b>" + s + "</b>";
-                        },
-                        CountBack:function( secs, self ){
-                            if (secs < 0) {
-                                self.element.innerHTML = '<div class="lof-labelexpired"> '+self.options.FinishMessage+"</div>";
-                                return;
-                            }
-                            clearInterval(self.timer);
-                            DisplayStr = self.options.DisplayFormat.replace(/%%D%%/g, self.calculateDate( secs,86400,100000) );
-                            DisplayStr = DisplayStr.replace(/%%H%%/g, self.calculateDate(secs,3600,24));
-                            DisplayStr = DisplayStr.replace(/%%M%%/g, self.calculateDate(secs,60,60));
-                            DisplayStr = DisplayStr.replace(/%%S%%/g, self.calculateDate(secs,1,60));
-                            self.element.innerHTML = DisplayStr;
-                            if (self.options.CountActive) {
-                                self.timer = null;
-                                self.timer =  setTimeout( function(){
-                                    self.CountBack((secs+self.CountStepper),self);
-                                },( self.SetTimeOutPeriod ) );
-                            }
-                        }
-                    });
-                    $(document).ready(function(){
-                        $('[data-countdown="countdown"]').each(function(index, el) {
-                            var $this = $(this);
-                            var $date = $this.data('date').split("-");
-                            $this.Dqdt_CountDown({
-                                TargetDate:$date[0]+"/"+$date[1]+"/"+$date[2]+" "+$date[3]+":"+$date[4]+":"+$date[5],
-                                DisplayFormat:"<div class=\"block-timer\"><p>%%D%%</p><span>Ngày</span></div><div class=\"block-timer\"><p>%%H%%</p><span>Giờ</span></div><div class=\"block-timer\"><p>%%M%%</p><span>Phút</span></div><div class=\"block-timer\"><p>%%S%%</p><span>Giây</span></div>",
-                                FinishMessage: "Chương trình đã hết hạn"
-                            });
-                        });
-                    });
-                })(jQuery);
-            </script> -->
             
 
             <div class="section-index section_coupons">
@@ -589,105 +468,31 @@ get_header();
                     </div>
                     <div class="swiper_coupons swiper-container">
                         <div class="swiper-wrapper">
+                            <?php foreach($list_voucher as $item){ ?>
                             <div class="swiper-slide">
                                 <div class="box-coupon">
                                     <div class="mask-ticket"></div>
                                     <div class="image">
-                                        <img  width="88" height="88" class="lazyload" src="public/img/img_coupon_1.webp" data-src="//bizweb.dktcdn.net/100/506/650/themes/944598/assets/img_coupon_1.jpg?1717814629369" alt="NEST200">
+                                        <img  width="88" height="88" class="lazyload" src="admin/public/images/<?php echo $item['img'] ?>" data-src="" alt="<?php echo $item['ten_voucher'] ?>">
                                     </div>
                                     <div class="content_wrap">
-                                        <a title="Chi tiết" href="javascript:void(0)" class="info-button" data-coupon="NEST200" data-time="12/12/2024" data-content="Áp dụng cho đơn hàng từ <b>4,500,000đ</b> trở lên Không đi kèm với chương trình khác">
+                                        <a title="Chi tiết" href="javascript:void(0)" class="info-button" data-coupon="<?php echo $item['ten_voucher'] ?>" data-time="<?php echo date('d/m/Y', strtotime($item['ngaykt'])); ?>" data-content="<?php echo $item['dieukien'] ?>">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
                                                 <path d="M144 80c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z"></path>
                                             </svg>
                                         </a>
                                         <div class="content-top">
-                                            NEST200
-                                            <span class="line-clamp line-clamp-2">Giảm 200k giá trị đơn hàng</span>
+                                            <?php echo $item['ten_voucher'] ?>  
+                                            <span class="line-clamp line-clamp-2"><?php echo $item['mota'] ?></span>
                                         </div>
                                         <div class="content-bottom">
-                                            <span>HSD: 12/12/2024</span>
-                                            <div class="coupon-code js-copy" data-copy="NEST200" title="Sao chép">Copy mã</div>
+                                            <span>HSD: <?php echo date('d/m/Y', strtotime($item['ngaykt'])); ?></span>
+                                            <div class="coupon-code js-copy" data-copy="<?php echo $item['ten_voucher'] ?>" title="Sao chép">Copy mã</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="swiper-slide">
-                                <div class="box-coupon">
-                                    <div class="mask-ticket"></div>
-                                    <div class="image">
-                                        <img  width="88" height="88" class="lazyload" src="public/img/img_coupon_1.webp" data-src="//bizweb.dktcdn.net/100/506/650/themes/944598/assets/img_coupon_2.jpg?1717814629369" alt="NEST100">
-                                    </div>
-                                    <div class="content_wrap">
-                                        <a title="Chi tiết" href="javascript:void(0)" class="info-button" data-coupon="NEST100" data-time="24/12/2024" data-content="Áp dụng cho đơn hàng từ <b>2,500,000đ</b> trở lên Không đi kèm với chương trình khác">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-                                                <path d="M144 80c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z"></path>
-                                            </svg>
-                                        </a>
-                                        <div class="content-top">
-                                            NEST100
-                                            <span class="line-clamp line-clamp-2">Giảm 100k giá trị đơn hàng</span>
-                                        </div>
-                                        <div class="content-bottom">
-                                            <span>HSD: 24/12/2024</span>
-                                            <div class="coupon-code js-copy" data-copy="NEST100" title="Sao chép">Copy mã</div>
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-                            
-                            
-                            <div class="swiper-slide">
-                                <div class="box-coupon">
-                                    <div class="mask-ticket"></div>
-                                    <div class="image">
-                                        <img  width="88" height="88" class="lazyload" src="public/img/img_coupon_1.webp" data-src="//bizweb.dktcdn.net/100/506/650/themes/944598/assets/img_coupon_3.jpg?1717814629369" alt="NEST50">
-                                    </div>
-                                    <div class="content_wrap">
-                                        <a title="Chi tiết" href="javascript:void(0)" class="info-button" data-coupon="NEST50" data-time="25/12/2024" data-content="Áp dụng cho đơn hàng từ <b>1,500,000đ</b> trở lên Không đi kèm với chương trình khác">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-                                                <path d="M144 80c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z"></path>
-                                            </svg>
-                                        </a>
-                                        <div class="content-top">
-                                            NEST50
-                                            <span class="line-clamp line-clamp-2">Giảm 50k giá trị đơn hàng</span>
-                                        </div>
-                                        <div class="content-bottom">
-                                            <span>HSD: 25/12/2024</span>
-                                            <div class="coupon-code js-copy" data-copy="NEST50" title="Sao chép">Copy mã</div>
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-                            
-                            
-                            <div class="swiper-slide">
-                                <div class="box-coupon">
-                                    <div class="mask-ticket"></div>
-                                    <div class="image">
-                                        <img  width="88" height="88" class="lazyload" src="public/img/img_coupon_1.webp" data-src="//bizweb.dktcdn.net/100/506/650/themes/944598/assets/img_coupon_4.jpg?1717814629369" alt="NESTFREESHIP">
-                                    </div>
-                                    <div class="content_wrap">
-                                        <a title="Chi tiết" href="javascript:void(0)" class="info-button" data-coupon="NESTFREESHIP" data-time="25/12/2024" data-content="Miễn phí giao hàng (tối đa 30k) cho đơn hàng từ <b>1,000,000đ</b> trở lên">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-                                                <path d="M144 80c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z"></path>
-                                            </svg>
-                                        </a>
-                                        <div class="content-top">
-                                            NESTFREESHIP
-                                            <span class="line-clamp line-clamp-2">Miễn phí giao hàng</span>
-                                        </div>
-                                        <div class="content-bottom">
-                                            <span>HSD: 25/12/2024</span>
-                                            <div class="coupon-code js-copy" data-copy="NESTFREESHIP" title="Sao chép">Copy mã</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php } ?>
                         </div>
 
                         <div class="swiper-button-prev">
@@ -707,6 +512,32 @@ get_header();
                             </svg>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="popup-coupon">
+                <div class="content">
+                    <div class="title">
+                        Thông tin voucher
+                    </div>
+                    <div class="close-popup-coupon" title="Đóng" >
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve"> <g> <g> <path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717    L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859    c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287    l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285    L284.286,256.002z"></path> </g> </g> </svg>		
+                    </div>
+                    <ul> 
+                        <li>
+                            <span>Mã giảm giá:</span>
+                            <span class="code"></span>
+                        </li>
+                        <li>
+                            <span>Ngày hết hạn:</span>
+                            <span class="time"></span>
+                        </li>
+                        <li>
+                            <span>Điều kiện:</span>
+                            <span class="dieukien">
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -767,6 +598,7 @@ get_header();
                 
                 $loop_counter = 0;
                 foreach ($parent_categories_filter as $parent_category){
+                    $slug = create_slug($parent_category['ten_danhmuc']);
                     $loop_counter++;
             ?>
             <div class="section-index section_product_tab section_product_tab_1">
@@ -779,7 +611,7 @@ get_header();
                             </span>
                             
                             <h2>
-                                <a href=" /to-yen" title="Tổ yến"><?php echo $parent_category['ten_danhmuc'] ?></a>
+                                <a href="<?php echo $slug . "-dm-" . $parent_category['danhmuc_id'] . ".htm" ?>" title="<?php echo $parent_category['ten_danhmuc'] ?>"><?php echo $parent_category['ten_danhmuc'] ?></a>
                             </h2>
 
                             <div class="title-separator">
@@ -795,7 +627,7 @@ get_header();
                                         foreach ($sub_categories as $sub_category) {
                                             if ($sub_category['noibat'] == 2) {
                                         ?>
-                                        <li class="tab-link tab_cate " data-tab="tab<?php echo $sub_category['danhmuc_id'] ?>" data-url="to-yen-tho">
+                                        <li class="tab-link tab_cate " data-tab="tab<?php echo $sub_category['danhmuc_id'] ?>" data-url="">
                                             <span><?php echo $sub_category['ten_danhmuc'] ?></span>
                                         </li>
 
@@ -836,7 +668,7 @@ get_header();
                             if (!empty($sub_categories) ) { // Kiểm tra nếu $sub_categories không rỗng và là một mảng
                                 foreach ($sub_categories as $sub_category) {
                         ?>
-                            <div class="tab<?php echo $sub_category['danhmuc_id'] ?> tab-content">
+                            <div id="tab<?php echo $sub_category['danhmuc_id'] ?>" class="tab<?php echo $sub_category['danhmuc_id'] ?> tab-content">
                                 <div class="rows load-after">
                                 <?php
                                     $list_product_by_id_sub = get_list_pro_by_level($sub_category['danhmuc_id'],8);
@@ -846,7 +678,7 @@ get_header();
                                 ?>
                                     <div class="col_3 col_relative">
                                         <div class="item_product_main">
-                                            <form action="/cart/add" method="post" class="variants product-action item-product-main duration-300" data-cart-form="" data-id="product-actions-34775949" enctype="multipart/form-data">
+                                            <form class="variants product-action item-product-main duration-300" >
                                                 <span class="flash-sale">-6% </span>
                                                 <div class="tag-promo" title="Quà tặng">
                                                     <img src="public/img/tag_pro_icon.svg" data-src="public/img/tag_pro_icon.svg" alt="Quà tặng" class="lazyload loaded" data-was-processed="true">
@@ -860,25 +692,27 @@ get_header();
                                                 </div>
                                                     
                                                 <div class="product-thumbnail">
-                                                    <a class="image_thumb scale_hover" href="/copy-of-to-yen-tinh-che-cho-be-baby-loai-3" title="Tổ Yến Tinh Chế cho bé BaBy (loại 3)">
-                                                        <img class="lazyload duration-300 loaded" src="admin/public/images/<?php echo $item['img']?>" alt="Tổ Yến Tinh Chế cho bé BaBy (loại 3)" data-was-processed="true">
+                                                    <a class="image_thumb scale_hover" href="<?php echo $slug . "sp" . $item['product_id'] . ".htm" ?>" title="<?php echo $item['title']?>">
+                                                        <img class="lazyload duration-300 loaded" src="admin/public/images/<?php echo $item['img']?>" alt="<?php echo $item['title']?>" data-was-processed="true">
                                                     </a>
                                                 </div>
                                                 <div class="product-info">
                                                     <div class="name-price">
                                                         <h3 class="product-name line-clamp-2-new">
-                                                            <a href="/copy-of-to-yen-tinh-che-cho-be-baby-loai-3" title="Tổ Yến Tinh Chế cho bé BaBy (loại 3)"><?php echo $item['title']?></a>
+                                                            <a href="<?php echo $slug . "sp" . $item['product_id'] . ".htm" ?>" title="<?php echo $item['title']?>"><?php echo $item['title']?></a>
                                                         </h3>
                                                         <div class="product-price-cart">
-                                                            <span class="compare-price">3.100.000₫</span>
+                                                            <?php 
+                                                                if ($item['price_discount'] > 0) { ?>
+                                                                    <span class="compare-price"><?php echo currency_format($item['price_discount']) ?></span>
+                                                            <?php } ?>
                                                             <span class="price"><?php echo currency_format($item['price']) ?></span>
                                                         </div>
                                                     </div>
                                                     <div class="product-button">
-                                                        <input type="hidden" name="variantId" value="111118886">
-                                                        <button class="btn-cart btn-views add_to_cart btn btn-primary " title="Thêm vào giỏ hàng">
+                                                        <button class="btn-cart btn-views add_to_cart btn btn-primary add_cart" var_id="<?php echo $item['product_id']?>" title="Thêm vào giỏ hàng">
                                                             <span>Thêm vào giỏ</span>
-                                                            <svg enable-background="new 0 0 32 32" height="512" viewBox="0 0 32 32" width="512" xmlns="http://www.w3.org/2000/svg"><g><g><path d="m23.8 30h-15.6c-3.3 0-6-2.7-6-6v-.2l.6-16c.1-3.3 2.8-5.8 6-5.8h14.4c3.2 0 5.9 2.5 6 5.8l.6 16c.1 1.6-.5 3.1-1.6 4.3s-2.6 1.9-4.2 1.9c0 0-.1 0-.2 0zm-15-26c-2.2 0-3.9 1.7-4 3.8l-.6 16.2c0 2.2 1.8 4 4 4h15.8c1.1 0 2.1-.5 2.8-1.3s1.1-1.8 1.1-2.9l-.6-16c-.1-2.2-1.8-3.8-4-3.8z"></path></g><g><path d="m16 14c-3.9 0-7-3.1-7-7 0-.6.4-1 1-1s1 .4 1 1c0 2.8 2.2 5 5 5s5-2.2 5-5c0-.6.4-1 1-1s1 .4 1 1c0 3.9-3.1 7-7 7z"></path></g></g></svg>
+                                                            <svg enable-background="new 0 0 32 32" height="512" viewBox="0 0 32 32" width="512" xmlns="http://www.w3.org/2000/svg"><g><g><path d="m23.8 30h-15.6c-3.3 0-6-2.7-6-6v-.2l.6-16c.1-3.3 2.8-5.8 6-5.8h14.4c3.2 0 5.9 2.5 6 5.8l.6 16c.1 1.6-.5 3.1-1.6 4.3s-2.6 1.9-4.2 1.9c0 0-.1 0-.2 0zm-15-26c-2.2 0-3.9 1.7-4 3.8l-.6 16.2c0 2.2 1.8 4 4 4h15.8c1.1 0 2.1-.5 2.8-1.3s1.1-1.8 1.1-2.9l-.6-16c-.1-2.2-1.8-3.8-4-3.8z"/></g><g><path d="m16 14c-3.9 0-7-3.1-7-7 0-.6.4-1 1-1s1 .4 1 1c0 2.8 2.2 5 5 5s5-2.2 5-5c0-.6.4-1 1-1s1 .4 1 1c0 3.9-3.1 7-7 7z"/></g></g></svg>
                                                         </button>
                                                         <a href="javascript:void(0)" class="setWishlist btn-views btn-circle" data-wish="copy-of-to-yen-tinh-che-cho-be-baby-loai-3" tabindex="0" title="Thêm vào yêu thích">
                                                             <img width="25" height="25" src="//bizweb.dktcdn.net/100/506/650/themes/944598/assets/heart.png?1717814629369" alt="Thêm vào yêu thích"> 
@@ -1064,85 +898,23 @@ get_header();
 
                         <div class="swiper_feedback swiper-container control-top">
                             <div class="swiper-wrapper">
+                                <?php 
+                                    $list_contact = get_list_contact();
+                                    foreach ($list_contact as $item) {
+                                ?>
                                 <div class="swiper-slide">
                                     <div class="avatar">
-                                        <img data-src="public/img/feedback_1_avatar.jpg" alt="Ngọc Vy" width="200" height="200" class="lazyload" src="public/img/feedback_1_avatar.jpg"/>
+                                        <img data-src="admin/public/images/<?php echo $item['img'] ?>" alt="Ngọc Vy" width="200" height="200" class="lazyload" src="admin/public/images/<?php echo $item['img'] ?>"/>
                                     </div>
                                     <div class="feedback-item">
                                         <div class="block-content">
-                                            <b>
-                                                Ngọc Vy
-                                            </b>
-                                            <span>
-                                                Kế toán
-                                            </span>
-                                            <div class="feedback-content">
-                                                "Tôi đã lựa chọn Sudes Nest để dành tặng cho người yêu của mình những món quà thật ý nghĩa.
-                                                Tôi rất hài lòng với dịch vụ chuyên nghiệp, chất lượng sản phẩm cũng như sự tận tình của Sudes Nest.
-                                                Chắc chắn rằng tôi sẽ quay lại nhiều lần nữa."				
-                                            </div>
+                                            <b><?php echo $item['fullname'] ?></b>
+                                            <span><?php echo $item['job'] ?></span>
+                                            <div class="feedback-content"><?php echo $item['content'] ?></div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="swiper-slide">
-                                    <div class="avatar">
-                                        <img data-src="public/img/feedback_2_avatar.jpg" alt="Minh Trần" width="200" height="200" class="lazyload" src="public/img/feedback_2_avatar.jpg"/>
-                                    </div>
-                                    <div class="feedback-item">
-                                        <div class="block-content">
-                                            <b>
-                                                Minh Trần
-                                            </b>
-                                            <span>
-                                                Lập trình viên
-                                            </span>
-                                            <div class="feedback-content">
-                                                "Rất thích sản phẩm của Sudes Nest, trước toàn ra mua trực tiếp, lần này đặt hàng online, được 2 hôm là có hàng, chuẩn mẫu mã, ship nhanh và chất lượng tốt nữa. Tôi sẽ quay lại mua nữa."
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="swiper-slide">
-                                    <div class="avatar">
-                                        <img data-src="public/img/feedback_3_avatar.jpg" alt="Thùy Trang" width="200" height="200" class="lazyload" src="public/img/feedback_3_avatar.jpg"/>
-                                    </div>
-                                    <div class="feedback-item">
-                                        <div class="block-content">
-                                            <b>
-                                                Thùy Trang
-                                            </b>
-                                            <span>
-                                                Đầu bếp
-                                            </span>
-                                            <div class="feedback-content">
-                                                "Biết đến Sudes Nest khi định mua quà biếu Tết. Sản phẩm đa dạng tha hồ cho các bạn lựa khi đến đây. Giá cả theo mình là rất xứng đáng với chất lượng sản phẩm. Mua online hay offline cũng được."
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="swiper-slide">
-                                    <div class="avatar">
-                                        <img data-src="public/img/feedback_4_avatar.jpg" alt="Hồng Vân" width="200" height="200" class="lazyload" src="public/img/feedback_4_avatar.jpg"/>
-                                    </div>
-                                    <div class="feedback-item">
-                                        <div class="block-content">
-                                            <b>
-                                                Hồng Vân
-                                            </b>
-                                            <span>
-                                                Người mẫu
-                                            </span>
-                                            <div class="feedback-content">
-                                                "Tôi đã lựa chọn Sudes Nest để dành tặng cho mẹ yêu của mình những món quà thật ý nghĩa.
-                                                Tôi rất hài lòng với dịch vụ chuyên nghiệp, chất lượng sản phẩm cũng như sự tận tình của Sudes Nest.
-                                                Chắc chắn rằng tôi sẽ quay lại nhiều lần nữa."
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php }?>
                             </div>
 
                             <div class="swiper-button-prev">
@@ -1187,14 +959,15 @@ get_header();
                         <div class="col_4 big-news">
                             <?php 
                             $i = 0; // Khởi tạo bộ đếm
+                            $list_post = get_list_post();
                             foreach($list_post as $item) {
                                 if ($i >= 1) break; // Dừng vòng lặp sau khi hiển thị bài đầu tiên
                                 $slug = create_slug($item['post_title']);
                             ?>
-                            <a href="" title="1 tai yến chưng bao nhiêu nước? Cách chưng 1 tai yến không bị mất chất" class="news-top_item_img clearfix">
+                            <a href="<?php echo $slug . "tt" . $item['post_id'] . ".htm" ?>" title="<?php echo $item['post_title']?>" class="news-top_item_img clearfix">
                                 <div class="grow-0">
                                     <div class="item-img">
-                                        <img src="admin/public/images/<?php echo $item['img']?>" data-src="admin/public/images/<?php echo $item['img']?>" alt="1 tai yến chưng bao nhiêu nước? Cách chưng 1 tai yến không bị mất chất" class="lazyload duration-300 loaded" data-was-processed="true">
+                                        <img src="admin/public/images/<?php echo $item['img']?>" data-src="admin/public/images/<?php echo $item['img']?>" alt="<?php echo $item['post_title']?>" class="lazyload duration-300 loaded" data-was-processed="true">
                                     </div>
                                 </div>
                                 <div class="item-img-content">
@@ -1224,7 +997,7 @@ get_header();
                                 foreach(array_slice($list_post, 1) as $item) { // Bắt đầu từ bài thứ hai
                                     $slug = create_slug($item['post_title']);
                                     ?>
-                                <a href="" class="news-top_item_img">
+                                <a href="<?php echo $slug . "tt" . $item['post_id'] . ".htm" ?>" class="news-top_item_img">
                                     <div class="grow-0">
                                         <div class="item-img">
                                             <img src="admin/public/images/<?php echo $item['img']?>" data-src="admin/public/images/<?php echo $item['img']?>"  class="lazyload duration-300 loaded" data-was-processed="true">
@@ -1342,7 +1115,62 @@ get_header();
                     </div>
                 </div>
             </div>
-            <script src="public/js/main_yen.js"></script>
+        
+        
+        <script>
+            var swiper_coupons = null;
+            function initSwiperCoupons() {
+                swiper_coupons = new Swiper('.swiper_coupons', {
+                    slidesPerView: 4,
+                    spaceBetween: 16,
+                    watchOverflow: true,
+                    slidesPerGroup: 1,
+                    navigation: {
+                        nextEl: '.swiper_coupons .swiper-button-next',
+                        prevEl: '.swiper_coupons .swiper-button-prev',
+                    },
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 2,
+                            spaceBetween: 14
+                        },
+                        768: {
+                            slidesPerView: 2.3,
+                            spaceBetween: 14
+                        },
+                        992: {
+                            slidesPerView: 2.5,
+                            spaceBetween: 20
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 16
+                        },
+                        1200: {
+                            slidesPerView: 4,
+                            spaceBetween: 16
+                        }
+                    }
+                });
+            }
+            function destroySwiperCoupons() {
+                if (swiper_coupons) {
+                    swiper_coupons.destroy(true, true);
+                    swiper_coupons = null;
+                }
+            }
+            function toggleSwiperCoupons() {
+                if ($(window).width() <= 767 && swiper_coupons) {
+                    destroySwiperCoupons();
+                } else if ($(window).width() > 767 && !swiper_coupons) {
+                    initSwiperCoupons();
+                }
+            }
+            toggleSwiperCoupons();
+            $(window).on('resize', function() {
+                toggleSwiperCoupons();
+            });
+        </script>                   
 <?php
 get_footer();
 ?>

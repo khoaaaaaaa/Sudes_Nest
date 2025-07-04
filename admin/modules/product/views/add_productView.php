@@ -14,7 +14,7 @@ get_header();
             Thêm sản phẩm
         </div>
         <div class="card-body">
-        <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -114,7 +114,6 @@ get_header();
                     }
                 </script>
 
-                <div class="test"></div>
                 <script>
                     $(document).ready(function() {
                         $('#cap1').on('change', function() {
@@ -167,7 +166,7 @@ get_header();
 
                 <div class="form-group">
                     <label for="intro">Mô tả sản phẩm</label>
-                    <textarea name="description" class="form-control" id="intro" cols="30" rows="5" value="<?php echo set_value('description')?>" id="desc"><?php echo set_value('description')?></textarea>
+                    <textarea name="description" id="desc" class="textarea" id="intro" cols="30" rows="5" value="<?php echo set_value('description')?>" class="ckeditor"><?php echo set_value('description')?></textarea>
                 </div>
 
                 <div class="form-group">
